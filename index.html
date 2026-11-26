@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEANATURA</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22%230a2a36%22/%3E%3Cg%20transform%3D%22translate%28100%20104%29%20scale%280.82%29%20translate%28-100%20-104%29%22%3E%3Cpath%20d%3D%22M44%20132%20C80%20122%20104%2088%20108%2026%20C116%2066%20136%20104%20172%20132%20Z%22%20fill%3D%22%2362d6c5%22/%3E%3Cpath%20d%3D%22M18%20148%20C38%20138%2056%20138%2074%20148%20C92%20158%20110%20158%20128%20148%20C146%20138%20164%20138%20182%20148%22%20fill%3D%22none%22%20stroke%3D%22%23ecdcc0%22%20stroke-width%3D%2216%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<meta name="description" content="SEANATURA : un laboratoire marin itinérant et des classes de mer en Méditerranée pour les élèves de Suisse romande. Dossier de préfiguration, rentrée 2027.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Idée de mise en page : une descente. On part du Léman (+372 m), on suit le Rhône jusqu'à la mer (0 m),
+   puis on plonge. La jauge de droite donne l'altitude ; les photos de terrain portent le récit. */
+:root{
+  color-scheme:dark;
+  --abyss:#03131b;
+  --deep:#0a2a36;
+  --lagoon:#62d6c5;
+  --sand:#ecdcc0;
+  --foam:#f2f7f6;
+  --mute:#a9c1c4;
+  --coral:#ff7d5c;
+  --plate:rgba(10,42,54,.72);
+  --line:rgba(98,214,197,.28);
+  --f-display:'Outfit','Segoe UI',system-ui,sans-serif;
+  --f-body:'Instrument Sans','Segoe UI',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--abyss);color:var(--foam);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden;
+  background-image:linear-gradient(180deg,#0f4552 0,#0a2a36 900px,#03131b 2600px)}
+img{max-width:100%;display:block}
+a{color:var(--lagoon)}
+:focus-visible{outline:2px solid var(--sand);outline-offset:3px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.mono{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lagoon)}
+.lede{font-size:1.14rem;color:var(--foam);max-width:62ch}
+.txt{color:var(--mute);max-width:64ch}
+.txt strong,.lede strong{color:var(--foam);font-weight:600}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(3,19,27,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:54px}
+.brand{font-family:var(--f-display);font-weight:700;letter-spacing:.08em;color:var(--sand);text-decoration:none;font-size:1rem;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav nav{display:flex;gap:18px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav nav a{color:var(--mute);text-decoration:none;font-size:.86rem;white-space:nowrap}
+.nav nav a:hover{color:var(--foam)}
+
+/* gauge */
+.gauge{position:fixed;z-index:15;right:12px;top:50%;transform:translateY(-50%);height:min(54vh,400px);width:80px;pointer-events:none;font-family:var(--f-mono);font-size:.64rem;color:var(--foam)}
+.gauge .rail{position:absolute;right:8px;top:0;bottom:0;width:1px;background:var(--line)}
+.gauge .tick{position:absolute;right:8px;width:9px;height:1px;background:var(--foam)}
+.gauge .tick span{position:absolute;right:15px;top:-.7em;white-space:nowrap;color:var(--mute)}
+.gauge .mark{position:absolute;right:3px;width:11px;height:11px;margin-top:-5.5px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(255,125,92,.25)}
+.gauge .read{position:absolute;right:22px;margin-top:-.9em;background:rgba(3,19,27,.9);padding:.15em .5em;font-size:.78rem;white-space:nowrap}
+@media (max-width:1320px){.gauge{display:none}}
+
+/* hero */
+.hero{padding:clamp(36px,7vh,84px) 0 clamp(44px,8vh,96px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(24px,5vw,64px);align-items:center}
+.hero h1{font-weight:700;line-height:.96;font-size:clamp(2.7rem,6.6vw,5.3rem);letter-spacing:-.02em;color:var(--sand);margin:.3em 0 .35em}
+.hero h1 em{font-style:normal;color:var(--lagoon)}
+.hero .sub{font-size:clamp(1.08rem,1.6vw,1.3rem);max-width:34em}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px;padding:0;list-style:none}
+.tags li{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;border:1px solid var(--line);padding:.35em .8em;border-radius:99px;color:var(--foam)}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font-family:var(--f-display);font-weight:600;font-size:.98rem;text-decoration:none;padding:.72em 1.25em;border-radius:6px;border:1px solid var(--lagoon);color:var(--lagoon);background:none;cursor:pointer}
+.btn.solid{background:var(--lagoon);color:var(--abyss)}
+.btn:hover{background:var(--sand);border-color:var(--sand);color:var(--abyss)}
+.hero figure{margin:0;position:relative}
+.hero figure img{width:100%;aspect-ratio:3/4.3;object-fit:cover;border-radius:4px}
+figcaption,.cap{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;color:var(--mute);margin-top:8px}
+
+section{padding:clamp(52px,9vh,104px) 0;border-top:1px solid var(--line)}
+.head{display:grid;gap:14px;margin-bottom:clamp(28px,5vh,48px)}
+.head h2{font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.04;color:var(--sand);letter-spacing:-.01em;max-width:18em}
+
+/* pourquoi */
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.why > div{background:var(--abyss);padding:26px 24px;display:grid;gap:10px;align-content:start}
+.why b{font-family:var(--f-display);font-size:1.6rem;line-height:1.12;text-wrap:balance;color:var(--lagoon);font-weight:600;font-variant-numeric:tabular-nums}
+.why h3{font-size:1.14rem;color:var(--foam)}
+.why p{color:var(--mute);font-size:.96rem}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:clamp(32px,5vh,56px)}
+.split img{border-radius:4px;width:100%;object-fit:cover}
+.stack{display:grid;gap:16px}
+
+/* méthode */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;border-top:2px solid var(--lagoon);padding-top:16px;display:grid;gap:8px;align-content:start}
+.steps li::before{content:"Temps " counter(s);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lagoon)}
+.steps h3{font-size:1.2rem;color:var(--sand)}
+.steps p{color:var(--mute);font-size:.95rem}
+.note{margin-top:34px;border-left:2px solid var(--coral);padding:4px 0 4px 20px;max-width:70ch;color:var(--foam)}
+.rules{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;padding:0;list-style:none}
+.rules li{background:var(--plate);border:1px solid var(--line);padding:.5em .95em;border-radius:4px;font-size:.92rem}
+.rules li b{color:var(--coral);font-weight:600}
+
+/* ateliers phares */
+.lab{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(22px,4vw,52px);align-items:start;margin-bottom:clamp(44px,7vh,80px)}
+.lab.rev{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+.lab h3{font-size:clamp(1.5rem,2.6vw,2.1rem);color:var(--sand);line-height:1.1}
+.q{font-family:var(--f-display);font-size:1.15rem;color:var(--lagoon);font-weight:500}
+.meta{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;color:var(--mute);text-transform:uppercase}
+.do{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.do li{padding-left:20px;position:relative;color:var(--mute);font-size:.97rem}
+.do li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:2px;background:var(--coral)}
+.demo{background:var(--plate);border:1px solid var(--line);border-radius:6px;padding:18px}
+.demo .mono{display:block;margin-bottom:10px}
+.demo p.how{font-size:.92rem;color:var(--mute);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{font:500 .9rem var(--f-body);color:var(--foam);background:rgba(3,19,27,.7);border:1px solid var(--line);border-radius:99px;padding:.45em .95em;cursor:pointer}
+.chip:hover{border-color:var(--lagoon)}
+.chip[aria-pressed="true"]{background:var(--lagoon);color:var(--abyss);border-color:var(--lagoon)}
+.chip.done{background:var(--lagoon);color:var(--abyss);border-color:var(--lagoon);cursor:default}
+.chip.no{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.out{min-height:4.6em;font-size:.93rem;color:var(--foam);border-top:1px solid var(--line);padding-top:10px}
+.out b{color:var(--sand)}
+.out small{display:block;color:var(--mute);font-size:.8rem;margin-top:4px}
+svg text{font-family:var(--f-mono)}
+#shark .pt{opacity:.25;transition:opacity .3s}
+#shark .pt.on{opacity:1}
+#quiz .qframe{aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:#06202a}
+#quiz .qframe img{width:100%;height:100%;object-fit:cover;transition:opacity .25s;transform-origin:50% 50%}
+#quiz .chip.ok{background:var(--lagoon);color:var(--abyss);border-color:var(--lagoon)}
+#quiz .chip.ko{border-color:var(--coral);color:var(--coral)}
+#quiz .chip:disabled{cursor:default}
+#qnext{margin-top:12px}
+canvas{width:100%;height:auto;display:block;border-radius:4px;background:#06202a}
+
+/* grille ateliers */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--plate);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.card .b{padding:18px 18px 20px;display:grid;gap:9px;align-content:start}
+.card h3{font-size:1.22rem;color:var(--sand)}
+.card .q{font-size:1rem}
+.card p{font-size:.94rem;color:var(--mute)}
+
+/* camion */
+.van{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(22px,4vw,48px);align-items:center}
+.van svg{width:100%;height:auto}
+.kit{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:k}
+.kit li{counter-increment:k;display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;font-size:.96rem;color:var(--mute)}
+.kit li::before{content:counter(k);font-family:var(--f-mono);font-size:.76rem;width:26px;height:26px;border-radius:50%;border:1px solid var(--coral);color:var(--coral);display:grid;place-items:center}
+.kit b{color:var(--foam);font-weight:600}
+
+/* mer */
+.days{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:8px}
+.day{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--plate)}
+.day img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.day .b{padding:16px 18px 20px;display:grid;gap:8px}
+.day h3{font-size:1.15rem;color:var(--sand)}
+.day p{font-size:.94rem;color:var(--mute)}
+
+/* voyage */
+.strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.strip figure{margin:0}
+.strip img{width:100%;aspect-ratio:3/4.6;object-fit:cover;border-radius:4px}
+.birds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.birds figure{margin:0}
+.birds img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px}
+
+/* équipe */
+.team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.who{background:var(--plate);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.who img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.team{row-gap:0}
+.who.top{border-bottom:0;border-radius:6px 6px 0 0}
+.who.top .b{padding-bottom:18px}
+.who.bottom{border-top:0;border-radius:0 0 6px 6px}
+.who.bottom .b{padding-top:18px}
+.online{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.online>div{border-top:2px solid var(--coral);padding-top:14px;display:grid;gap:8px;align-content:start}
+.online h3{font-size:1.15rem;color:var(--sand)}
+.online p{color:var(--mute);font-size:.95rem}
+.partner{margin-top:34px;border:1px solid var(--line);border-radius:6px;padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;background:var(--plate)}
+.partner p{margin:0;color:var(--foam)}
+.together{grid-column:1/-1;background:linear-gradient(90deg,rgba(98,214,197,.16),rgba(255,125,92,.12));border:1px solid var(--lagoon);border-radius:6px;padding:18px 22px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2.1fr);gap:24px;align-items:center}
+.together h3{font-size:1.25rem;color:var(--sand);margin-top:4px}
+.together p{color:var(--foam);font-size:.97rem}
+.who .b{padding:22px 22px 26px;display:grid;gap:14px}
+.who h3{font-size:1.6rem;color:var(--sand)}
+.who .role{color:var(--lagoon);font-family:var(--f-display);font-weight:500}
+.cv{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.cv li{display:grid;grid-template-columns:118px 1fr;gap:12px;font-size:.93rem;color:var(--mute)}
+.cv li span:first-child{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;color:var(--lagoon);text-transform:uppercase;padding-top:.25em}
+.cv b{color:var(--foam);font-weight:600}
+
+/* formats, calendrier, budget */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.94rem}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lagoon);font-weight:500}
+td{color:var(--mute)}
+td:first-child{color:var(--foam);font-weight:600}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--sand);font-family:var(--f-display)}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
+.tl li{border-top:2px solid var(--line);padding:16px 16px 0 0;display:grid;gap:6px;align-content:start;position:relative}
+.tl li::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;border-radius:50%;background:var(--lagoon)}
+.tl li.key{border-top-color:var(--coral)}
+.tl li.key::before{background:var(--coral)}
+.tl .when{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--lagoon)}
+.tl li.key .when{color:var(--coral)}
+.tl h3{font-size:1.05rem;color:var(--foam)}
+.tl p{font-size:.9rem;color:var(--mute)}
+.ask{margin-top:40px;background:linear-gradient(135deg,rgba(255,125,92,.14),rgba(98,214,197,.08));border:1px solid var(--coral);border-radius:6px;padding:clamp(20px,3vw,34px);display:grid;gap:12px}
+.ask h3{font-size:1.5rem;color:var(--sand)}
+.ask p{max-width:70ch}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,48px);margin-top:44px}
+.two h3{font-size:1.3rem;color:var(--sand);margin-bottom:12px}
+.fine{font-size:.84rem;color:var(--mute);margin-top:12px;max-width:70ch}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:end}
+.contact h2{font-size:clamp(2rem,4.4vw,3.4rem);color:var(--sand);line-height:1.02}
+.contact dl{margin:0;display:grid;gap:10px;font-size:1rem}
+.contact dt{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lagoon)}
+.contact dd{margin:0 0 8px}
+footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px solid var(--line)}
+
+@media (max-width:900px){
+  .online{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .together{grid-template-columns:minmax(0,1fr);order:-1;margin-bottom:24px}
+  .who.top.al{order:1}.who.bottom.al{order:2;margin-bottom:24px}.who.top.ma{order:3}.who.bottom.ma{order:4}
+  .hero .wrap,.split,.lab,.lab.rev,.van,.team,.two,.contact{grid-template-columns:minmax(0,1fr)}
+  .hero figure img{aspect-ratio:4/3}
+  .why,.days{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .birds{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tl{grid-template-columns:minmax(0,1fr);gap:18px}
+}
+@media (max-width:560px){
+  .online{grid-template-columns:minmax(0,1fr)}
+  .steps,.grid{grid-template-columns:minmax(0,1fr)}
+  .cv li{grid-template-columns:minmax(0,1fr);gap:2px}
+  .nav nav a:nth-child(n+5){display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chip.no{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><svg aria-hidden="true" width="34" height="34" viewBox="0 16 200 176"><path d="M44 132 C80 122 104 88 108 26 C116 66 136 104 172 132 Z" fill="#62d6c5"/><path d="M18 148 C38 138 56 138 74 148 C92 158 110 158 128 148 C146 138 164 138 182 148" fill="none" stroke="#ecdcc0" stroke-width="12" stroke-linecap="round"/><path d="M18 172 C38 162 56 162 74 172 C92 182 110 182 128 172 C146 162 164 162 182 172" fill="none" stroke="#62d6c5" stroke-width="12" stroke-linecap="round" opacity=".55"/></svg><span><span style="color:var(--sand)">SEA</span><span style="color:var(--lagoon)">NATURA</span></span></a>
+    <nav aria-label="Sections">
+      <a href="#pourquoi">Pourquoi l'océan</a>
+      <a href="#methode">Méthode</a>
+      <a href="#ateliers">Ateliers</a>
+      <a href="#camion">Van-labo</a>
+      <a href="#mer">Classes de mer</a>
+      <a href="#enligne">En ligne</a>
+      <a href="#equipe">Équipe</a>
+      <a href="#calendrier">Rentrée 2027</a>
+    </nav>
+  </div>
+</header>
+
+<div class="gauge" aria-hidden="true">
+  <div class="rail"></div>
+  <div class="tick" style="top:0"><span>Léman +372 m</span></div>
+  <div class="tick" style="top:22%"><span>mer 0 m</span></div>
+  <div class="tick" style="top:100%"><span>−40 m</span></div>
+  <div class="mark" id="gmark" style="top:0"></div>
+  <div class="read" id="gread" style="top:0">+372 m</div>
+</div>
+
+<main id="top">
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <p class="mono">Dossier de préfiguration · Genève, Vaud, Grand Genève · rentrée 2027</p>
+      <h1>Quand l'océan rencontre <em>l'école</em></h1>
+      <p class="sub">Un laboratoire marin itinérant, animé par une biologiste marine et un océanographe, pour faire toucher la mer aux élèves de Suisse romande. Puis les y emmener ?</p>
+      <ul class="tags">
+        <li>Ateliers ludiques</li><li>Van-labo</li><li>Classes de mer en Méditerranée</li><li>7 à 16 ans</li>
+      </ul>
+      <div class="cta">
+        <a class="btn solid" href="#ateliers">Voir les ateliers</a>
+        <a class="btn" href="#calendrier">Ce qu'il faut pour septembre 2027</a>
+      </div>
+    </div>
+    <figure>
+      <img src="img/hero.jpg" alt="Un plongeur remonte dans un rayon de lumière au-dessus d'un banc de requins-marteaux">
+      <figcaption>Galápagos. Plongée au-dessus d'un banc de requins-marteaux.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<section id="pourquoi">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">01 · Le point de départ</p>
+      <h2>Pourquoi parler d'océan à des enfants qui vivent à 500 km de la mer</h2>
+      <p class="lede">La nature suisse a déjà ses médiateurs, et ils la connaissent mieux que nous. Ce que nous apportons, c'est ce qui manque : la mer, racontée et montrée par deux personnes dont c'est le métier.</p>
+    </div>
+    <div class="why">
+      <div>
+        <b>La Suisse a un lien avec la mer</b>
+        <h3>Le Léman se jette dans la Méditerranée</h3>
+        <p>L'eau qui quitte Genève par le Rhône rejoint la mer plus de 500 km en aval. Ce qu'on y laisse tomber aussi. Pour un élève genevois, l'océan commence au pont du Mont-Blanc.</p>
+      </div>
+      <div>
+        <b>1 sur 2</b>
+        <h3>Une respiration sur deux vient de la mer</h3>
+        <p>Le plancton marin produit environ la moitié de l'oxygène de la planète, et l'océan absorbe près d'un quart du CO₂ que nous émettons. Le climat des Alpes se joue aussi au large.</p>
+      </div>
+      <div>
+        <b>Des créatures qui captent l'attention</b>
+        <h3>Un requin, et toute la classe écoute</h3>
+        <p>Requins, baleines, abysses : aucun sujet ne mobilise autant la curiosité des enfants. C'est une porte d'entrée idéale vers la démarche scientifique, la physique de l'eau et le vivant.</p>
+      </div>
+    </div>
+    <div class="split">
+      <img src="img/rb3.jpg" alt="Un requin-baleine bouche ouverte, vu de face sous la surface" style="aspect-ratio:1/1">
+      <div class="stack">
+        <h3 style="font-size:1.6rem;color:var(--sand)">Ce que les élèves n'ont jamais eu en classe</h3>
+        <p class="txt">De la Méditerranée aux Caraïbes à la voile, puis à travers l’Amérique centrale et du Sud jusqu’au Pacifique, nous revenons avec des images, des observations et mille histoires d’océan. <strong>Biologiste marine</strong> et <strong>ingénieur océanographe</strong>, tous deux plongeurs professionnels, nous partageons une même envie : explorer, comprendre et protéger le monde marin.</p>
+        <p class="txt">Quand un enfant demande « vous l'avez vu en vrai ? », la réponse est oui. Cette photo de requin-baleine a été prise à deux mètres de sa bouche, en Basse-Californie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="methode">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">02 · La méthode</p>
+      <h2>Une enquête à chaque séance, jamais un exposé</h2>
+      <p class="lede">Chaque atelier suit une démarche d'investigation : les élèves partent de ce qu'ils croient savoir, formulent des hypothèses, les testent avec leurs mains, puis confrontent leurs résultats.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Ce qu'ils pensent</h3><p>« Dessine-moi un requin. » « D'où viennent les vagues ? » On recueille les conceptions de départ. Elles servent de matière première, et de point de comparaison en fin de séance.</p></li>
+      <li><h3>Une question qui résiste</h3><p>Chaque atelier pose une énigme concrète : comment un requin trouve-t-il un poisson caché sous le sable ? Les élèves proposent leurs explications avant de toucher au matériel.</p></li>
+      <li><h3>Des mains dans l'eau</h3><p>Petits groupes en rotation. On manipule, on mesure, on note, on se trompe, on recommence. Les animateurs relancent, ils ne donnent pas la réponse.</p></li>
+      <li><h3>Conclure et agir</h3><p>Mise en commun, retour sur les dessins du début, et une décision de classe : un geste, une affiche, un message à transmettre à une autre classe.</p></li>
+    </ol>
+    <ul class="rules">
+      <li><b>Zéro</b> diaporama</li>
+      <li><b>Dix minutes</b> maximum sans manipuler</li>
+      <li><b>De vraies données</b> et de vraies images de terrain</li>
+      <li><b>Un passeport d'explorateur</b> tamponné à chaque atelier</li>
+      <li><b>Dessins avant / après</b> pour mesurer ce qui a bougé</li>
+    </ul>
+    <p class="note">Ce projet s'inscrit dans une tradition romande que vous connaissez bien : faire entrer une expédition dans la classe, comme l'ont fait Educapoles pour les régions polaires ou les dossiers pédagogiques de PlanetSolar DeepWater. Nous proposons d'en construire le volet océan, et nous aimerions soumettre nos séquences à un regard didactique avant de les déployer.</p>
+  </div>
+</section>
+
+<section id="ateliers">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">03 · Les ateliers</p>
+      <h2>Douze ateliers ludiques, dont trois à essayer ici</h2>
+      <p class="lede">Chaque atelier dure 45 à 90 minutes et s'adapte de la 5P au secondaire I. Les trois premiers sont nos pièces maîtresses, et une version simplifiée de chacun est jouable sur cette page.</p>
+    </div>
+
+    <div class="lab">
+      <div class="stack">
+        <p class="meta">Atelier 1 · 7 à 14 ans · 60 min · biologie</p>
+        <h3>Les super-sens du requin</h3>
+        <p class="q">Comment un requin trouve-t-il une proie qu'il ne voit pas ?</p>
+        <p class="txt">Une tête de requin et sa nageoire dorsale, imprimées en 3D en filament biosourcé et aimantées. Pas besoin du requin entier : tous les sens sont sur la tête, où commence aussi la ligne latérale. Six aimants à poser : narines, oreille interne, ligne latérale, œil, ampoules de Lorenzini, bouche.</p>
+        <ul class="do">
+          <li>Les élèves placent chaque organe au bon endroit sur le corps.</li>
+          <li>Ils classent ensuite les sens selon la distance à laquelle le requin détecte sa proie, et débattent avant de vérifier.</li>
+          <li>Épreuve finale : retrouver un « poisson » caché sous le sable d'un bac avec une boussole, qui joue le rôle du sens électrique.</li>
+          <li>À toucher : vraies dents fossiles, moulage de mâchoire, papier de verre pour la peau.</li>
+        </ul>
+        <img src="img/requin.jpg" alt="Un requin nage au-dessus d'un fond rocheux dans une eau bleue" style="aspect-ratio:16/10;object-fit:cover;border-radius:4px;width:100%">
+        <p class="cap">Requin, Galápagos. Photo du voyage.</p>
+      </div>
+      <div class="demo" id="sharkdemo">
+        <span class="mono">À vous de jouer</span>
+        <p class="how">Cliquez sur les sens dans l'ordre, de celui qui porte le plus loin à celui qui ne fonctionne qu'au contact.</p>
+        <svg id="shark" viewBox="0 0 600 250" role="img" aria-label="Silhouette de requin avec six zones sensorielles">
+          <path d="M20 130 C80 85 170 70 250 74 L300 22 L322 78 C400 86 470 104 520 122 L585 70 L566 132 L590 196 L522 144 C500 156 470 166 438 172 L420 204 L392 178 C320 186 230 186 170 176 L140 212 L128 168 C80 158 40 146 20 130 Z" fill="#17475a" stroke="#62d6c5" stroke-width="1.5"/>
+          <path d="M150 128 l0 26 M162 130 l0 26 M174 132 l0 26" stroke="#03131b" stroke-width="3"/>
+          <g class="pt" data-k="ouie"><circle cx="104" cy="104" r="11" fill="#ff7d5c"/><text x="160" y="92" text-anchor="middle" font-size="12" fill="#f2f7f6">oreille interne</text></g>
+          <g class="pt" data-k="odorat"><circle cx="36" cy="134" r="9" fill="#ff7d5c"/><text x="14" y="168" font-size="12" fill="#f2f7f6">narines</text></g>
+          <g class="pt" data-k="ligne"><path d="M130 118 C240 104 400 116 520 130" stroke="#ff7d5c" stroke-width="4" fill="none" stroke-dasharray="3 7" stroke-linecap="round"/><text x="350" y="104" text-anchor="middle" font-size="12" fill="#f2f7f6">ligne latérale</text></g>
+          <g class="pt" data-k="vue"><circle cx="72" cy="118" r="7" fill="#ecdcc0"/><circle cx="72" cy="118" r="3" fill="#03131b"/><text x="46" y="66" text-anchor="middle" font-size="12" fill="#f2f7f6">œil</text><path d="M50 72 L69 109" stroke="#a9c1c4" stroke-width="1"/></g>
+          <g class="pt" data-k="elec"><g fill="#62d6c5"><circle cx="44" cy="120" r="2.4"/><circle cx="52" cy="112" r="2.4"/><circle cx="50" cy="126" r="2.4"/><circle cx="58" cy="132" r="2.4"/><circle cx="40" cy="127" r="2.4"/><circle cx="60" cy="121" r="2.4"/></g><text x="118" y="232" text-anchor="middle" font-size="12" fill="#f2f7f6">ampoules de Lorenzini</text><path d="M96 220 L54 136" stroke="#a9c1c4" stroke-width="1"/></g>
+          <g class="pt" data-k="gout"><path d="M40 146 C60 154 84 156 104 152" stroke="#ff7d5c" stroke-width="4" fill="none" stroke-linecap="round"/><text x="210" y="216" font-size="12" fill="#f2f7f6">bouche</text><path d="M206 210 L104 156" stroke="#a9c1c4" stroke-width="1"/></g>
+        </svg>
+        <div class="chips" id="schips"></div>
+        <div class="out" id="sout" aria-live="polite">Six sens, six distances. Lequel alerte le requin en premier ?</div>
+      </div>
+    </div>
+
+    <div class="lab rev">
+      <div class="demo">
+        <span class="mono">À vous de jouer</span>
+        <p class="how">Choisissez une protection pour le village et observez jusqu'où monte la vague.</p>
+        <canvas id="flume" width="640" height="300" role="img" aria-label="Canal à houle simulé : des vagues arrivent sur une plage où se trouve une maison"></canvas>
+        <div class="chips" id="fchips" role="group" aria-label="Protection du littoral">
+          <button class="chip" type="button" data-m="none" aria-pressed="true">Rien</button>
+          <button class="chip" type="button" data-m="herbier" aria-pressed="false">Herbier de posidonie</button>
+          <button class="chip" type="button" data-m="recif" aria-pressed="false">Récif corallien</button>
+          <button class="chip" type="button" data-m="digue" aria-pressed="false">Digue en béton</button>
+        </div>
+        <div class="out" id="fout" aria-live="polite"></div>
+      </div>
+      <div class="stack">
+        <p class="meta">Atelier 2 · 9 à 16 ans · 75 min · physique</p>
+        <h3>Le mini canal à houle</h3>
+        <p class="q">Comment protéger un village des vagues sans bétonner la plage ?</p>
+        <p class="txt">Un canal transparent de 2 m, un batteur à manivelle pour créer la houle, du sable, des maisons miniatures. C'est l'outil de travail des ingénieurs côtiers, à l'échelle d'une table.</p>
+        <ul class="do">
+          <li>Chaque groupe construit sa plage et son village, puis lance la tempête.</li>
+          <li>Ils testent tour à tour une digue, des enrochements et un récif imprimés en 3D, puis un herbier en lanières souples.</li>
+          <li>Ils mesurent à la règle jusqu'où l'eau monte et remplissent un tableau de résultats.</li>
+          <li>Débat final : quelle solution choisir, à quel prix, et pour qui ? Récit de terrain en Polynésie, où la question se pose pour de vrai.</li>
+        </ul>
+        <img src="img/desirade.jpg" alt="Vue aérienne d'un village côtier protégé par un récif corallien" style="aspect-ratio:16/10;object-fit:cover;border-radius:4px;width:100%">
+        <p class="cap">La Désirade, Caraïbes. Le récif casse la houle avant le village. Photo drone du voyage.</p>
+      </div>
+    </div>
+
+
+    <div class="lab">
+      <div class="stack">
+        <p class="meta">Atelier 3 · 6 à 14 ans · 45 min · biologie</p>
+        <h3>À qui sont ces motifs ?</h3>
+        <p class="q">Comment reconnaître un animal, et même un individu, à ses taches ?</p>
+        <p class="txt">Le format vient de nos publications Instagram, où il fonctionne très bien : un gros plan mystère, un indice, puis la photo entière. En classe, on le prolonge par le vrai travail des chercheurs.</p>
+        <ul class="do">
+          <li>Manche 1 : des gros plans de peau, d'écailles et de plumes projetés en grand. Les équipes votent avec des cartes.</li>
+          <li>Manche 2 : vingt photos de raies léopards et de requins-baleines. Retrouver les paires qui montrent le même individu, à partir de ses taches.</li>
+          <li>Chaque équipe baptise « son » animal et l'inscrit au registre de la classe, comme dans les programmes de photo-identification.</li>
+          <li>À la fin, chaque élève fabrique sa propre carte motif à faire deviner à sa famille.</li>
+        </ul>
+      </div>
+      <div class="demo" id="quiz">
+        <span class="mono">À vous de jouer · <span id="qscore">motif 1 sur 4</span></span>
+        <p class="how" id="qhint">À qui appartient ce motif ? Indice : on peut le croiser sous l'eau.</p>
+        <div class="qframe"><img id="qimg" src="img/q-raie.jpg" alt="Gros plan mystère d'un motif animal"></div>
+        <div class="chips" id="qchips"></div>
+        <div class="out" id="qout" aria-live="polite">Choisissez une réponse.</div>
+        <button class="btn" type="button" id="qnext" hidden>Motif suivant</button>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <img src="img/dauphin.jpg" alt="Dauphin nageant sous la surface" style="object-position:50% 78%">
+        <div class="b">
+          <p class="meta">Atelier 4 · 8 à 16 ans · 60 min</p>
+          <h3>L'océan, les yeux fermés</h3>
+          <p class="q">Que voit un dauphin quand il n'y a plus de lumière ?</p>
+          <p>Blind test de sons enregistrés sous l'eau, lecture de spectrogrammes, puis jeu d'écholocation en binôme, yeux bandés. On finit par ajouter le bruit des bateaux et on constate ce qui se perd.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="img/fou.jpg" alt="Fou à pieds bleus des Galápagos posé sur un rocher">
+        <div class="b">
+          <p class="meta">Atelier 5 · 6 à 13 ans · 60 min</p>
+          <h3>À chaque bec son métier</h3>
+          <p class="q">Pourquoi les oiseaux marins n'ont-ils pas tous le même bec ?</p>
+          <p>Pinces, passoires, pailles, épuisettes : chaque élève reçoit un « bec » et doit se nourrir dans des bacs différents. On mesure ensuite son envergure au sol contre celle d'une frégate.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="img/dauphins.jpg" alt="Deux dauphins en surface">
+        <div class="b">
+          <p class="meta">Atelier 6 · 8 à 15 ans · 75 min</p>
+          <h3>Le peuple invisible</h3>
+          <p class="q">Qui fabrique l'air que tu respires ?</p>
+          <p>Observation de plancton à la loupe binoculaire reliée à un écran. Puis défi d'ingénierie : fabriquer le plancton qui coule le plus lentement dans une colonne d'eau. La course la plus lente gagne.</p>
+        </div>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Illustration : une mer de jetons au sol, poissons adultes et jeunes, herbier, corail et tortue, et six engins de pêche miniatures, des plus sélectifs aux plus destructeurs" style="width:100%;aspect-ratio:16/10;display:block;background:#0a2a36">
+<rect x="18" y="26" width="186" height="138" rx="14" fill="#2f7fd6" opacity=".85"/>
+<g fill="none" stroke="#f2f7f6" stroke-opacity=".18" stroke-width="1.2"><path d="M28 44 c10 -4 20 -4 30 0 s20 4 30 0"/><path d="M110 152 c10 -4 20 -4 30 0 s20 4 30 0"/></g>
+<g transform="translate(32 80)" fill="none" stroke="#3fae7c" stroke-width="2.2" stroke-linecap="round"><path d="M-4 6 C-6 0 -2 -3 -4 -9"/><path d="M0 6 C2 -1 -1 -4 1 -11"/><path d="M4 6 C6 1 3 -2 5 -6"/></g><g transform="translate(190 58)" fill="none" stroke="#3fae7c" stroke-width="2.2" stroke-linecap="round"><path d="M-4 6 C-6 0 -2 -3 -4 -9"/><path d="M0 6 C2 -1 -1 -4 1 -11"/><path d="M4 6 C6 1 3 -2 5 -6"/></g><g transform="translate(124 112)" fill="none" stroke="#3fae7c" stroke-width="2.2" stroke-linecap="round"><path d="M-4 6 C-6 0 -2 -3 -4 -9"/><path d="M0 6 C2 -1 -1 -4 1 -11"/><path d="M4 6 C6 1 3 -2 5 -6"/></g><g transform="translate(80 120)" fill="none" stroke="#ff7d5c" stroke-width="2.4" stroke-linecap="round"><path d="M0 7 V-2 M0 2 L-5 -4 V-8 M0 0 L5 -5 V-9 M-5 -4 L-8 -6"/></g><g transform="translate(184 148)" fill="none" stroke="#ff7d5c" stroke-width="2.4" stroke-linecap="round"><path d="M0 7 V-2 M0 2 L-5 -4 V-8 M0 0 L5 -5 V-9 M-5 -4 L-8 -6"/></g><g transform="translate(150 40)"><ellipse rx="9" ry="7" fill="#7bbf8e"/><circle cx="10" cy="0" r="3" fill="#7bbf8e"/><g fill="#7bbf8e"><ellipse cx="-6" cy="-7" rx="3" ry="1.6"/><ellipse cx="6" cy="-7" rx="3" ry="1.6"/><ellipse cx="-6" cy="7" rx="3" ry="1.6"/><ellipse cx="6" cy="7" rx="3" ry="1.6"/></g><path d="M-5 -3 h10 M-5 3 h10 M0 -6 v12" stroke="#4f9264" stroke-width="1"/></g><g transform="translate(48 58) scale(1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(92 50) scale(-1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(150 62) scale(1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(70 96) scale(-1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(128 92) scale(1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(176 104) scale(-1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(56 134) scale(1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(110 128) scale(-1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(160 140) scale(1.25 1.25)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(66 72) scale(-0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(118 70) scale(0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(170 80) scale(-0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(40 106) scale(0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(96 110) scale(-0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(146 116) scale(0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(84 146) scale(-0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(134 150) scale(0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(188 128) scale(-0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><g transform="translate(100 84) scale(0.7 0.7)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g>
+<g font-family="JetBrains Mono, monospace" font-size="6" fill="#ecdcc0">
+<g transform="translate(26 176)"><g transform="translate(4 0) scale(1 1)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><text x="18" y="2">ADULTE</text><g transform="translate(62 0) scale(0.6 0.6)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#62d6c5"/><path d="M6 0 L11 -4 L11 4 Z" fill="#62d6c5"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g><text x="70" y="2">JEUNE</text></g>
+<circle cx="216" cy="174" r="2.6" fill="#62d6c5"/><text x="221" y="176">sélectif</text><circle cx="262" cy="174" r="2.6" fill="#ff7d5c"/><text x="267" y="176">destructeur</text></g>
+<g transform="translate(212 22)"><rect width="46" height="44" rx="5" fill="#0f3c4c" stroke="#ecdcc0" stroke-opacity=".35"/><g transform="translate(1 3)"><path d="M8 28 L34 4" stroke="#ecdcc0" stroke-width="2.4" stroke-linecap="round"/><path d="M34 4 V22" stroke="#f2f7f6" stroke-width=".9"/><path d="M34 22 c0 4 -4 4 -4 1" fill="none" stroke="#f2f7f6" stroke-width="1.4"/></g><circle cx="40" cy="6" r="2.6" fill="#62d6c5"/><text x="23" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.6" fill="#ecdcc0" letter-spacing=".3">CANNE</text></g><g transform="translate(264 22)"><rect width="46" height="44" rx="5" fill="#0f3c4c" stroke="#ecdcc0" stroke-opacity=".35"/><g transform="translate(1 3)"><ellipse cx="20" cy="16" rx="11" ry="7" fill="none" stroke="#ecdcc0" stroke-width="2.4"/><path d="M20 10 v12" stroke="#ecdcc0" stroke-width="1.6"/><path d="M33 22 V9 c0 -3 3 -3 3 0" fill="none" stroke="#62d6c5" stroke-width="2.2" stroke-linecap="round"/></g><circle cx="40" cy="6" r="2.6" fill="#62d6c5"/><text x="23" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.6" fill="#ecdcc0" letter-spacing=".3">CHASSE</text></g><g transform="translate(212 72)"><rect width="46" height="44" rx="5" fill="#0f3c4c" stroke="#ecdcc0" stroke-opacity=".35"/><g transform="translate(1 3)"><path d="M8 26 C8 8 36 8 36 26 Z" fill="none" stroke="#ecdcc0" stroke-width="2.2"/><g stroke="#ecdcc0" stroke-width="1" fill="none"><path d="M15 26 C15 14 22 11 22 11 M29 26 C29 14 22 11 22 11 M9 19 H35"/></g></g><circle cx="40" cy="6" r="2.6" fill="#62d6c5"/><text x="23" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.6" fill="#ecdcc0" letter-spacing=".3">NASSE</text></g><g transform="translate(264 72)"><rect width="46" height="44" rx="5" fill="#0f3c4c" stroke="#ecdcc0" stroke-opacity=".35"/><g transform="translate(1 3)"><path d="M4 8 H40" stroke="#ecdcc0" stroke-width="1.8"/><path d="M10 8 v10" stroke="#f2f7f6" stroke-width=".9"/><path d="M10 18 c0 4 -3 4 -3 1" fill="none" stroke="#f2f7f6" stroke-width="1.3"/><path d="M18 8 v10" stroke="#f2f7f6" stroke-width=".9"/><path d="M18 18 c0 4 -3 4 -3 1" fill="none" stroke="#f2f7f6" stroke-width="1.3"/><path d="M26 8 v10" stroke="#f2f7f6" stroke-width=".9"/><path d="M26 18 c0 4 -3 4 -3 1" fill="none" stroke="#f2f7f6" stroke-width="1.3"/><path d="M34 8 v10" stroke="#f2f7f6" stroke-width=".9"/><path d="M34 18 c0 4 -3 4 -3 1" fill="none" stroke="#f2f7f6" stroke-width="1.3"/></g><circle cx="40" cy="6" r="2.6" fill="#f2c14e"/><text x="23" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.6" fill="#ecdcc0" letter-spacing=".3">PALANGRE</text></g><g transform="translate(212 122)"><rect width="46" height="44" rx="5" fill="#0f3c4c" stroke="#ecdcc0" stroke-opacity=".35"/><g transform="translate(1 3)"><path d="M4 6 L18 14" stroke="#ecdcc0" stroke-width="2.4" stroke-linecap="round"/><path d="M18 6 C30 6 40 14 38 26 C30 28 20 24 16 18 Z" fill="none" stroke="#ecdcc0" stroke-width="2"/><g stroke="#ecdcc0" stroke-width=".8"><path d="M22 8 L26 24 M28 9 L32 26 M18 12 L37 16 M17 17 L38 21"/></g></g><circle cx="40" cy="6" r="2.6" fill="#ff7d5c"/><text x="23" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.6" fill="#ecdcc0" letter-spacing=".3">CHALUT</text></g><g transform="translate(264 122)"><rect width="46" height="44" rx="5" fill="#0f3c4c" stroke="#ecdcc0" stroke-opacity=".35"/><g transform="translate(1 3)"><circle cx="18" cy="16" r="11" fill="none" stroke="#ecdcc0" stroke-width="2.6"/><path d="M34 4 L42 26 H26 Z" fill="#ff7d5c"/><path d="M34 11 v8" stroke="#03131b" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="22.5" r="1.2" fill="#03131b"/></g><circle cx="40" cy="6" r="2.6" fill="#ff7d5c"/><text x="23" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.6" fill="#ecdcc0" letter-spacing=".3">EXPLOSIF</text></g>
+<text x="160" y="194" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#ecdcc0" letter-spacing="1.2" opacity=".85">CHOISIR · PÊCHER · LAISSER GRANDIR</text>
+</svg>
+        <div class="b">
+          <p class="meta">Atelier 7 · 9 à 16 ans · 60 à 75 min</p>
+          <h3>La pêche est ouverte</h3>
+          <p class="q">Peut-on pêcher toujours plus dans la même mer ?</p>
+          <p>Une mer de jetons au sol, des adultes et des jeunes, et six engins miniatures : canne, chasse sous-marine, nasse, palangre, chalut, explosif. Chaque saison, les équipes pêchent ; seuls les adultes restants se reproduisent. La mer se vide, d'autant plus vite que l'engin est destructeur. Puis les élèves fixent leurs propres règles et découvrent l'effet d'une réserve marine.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="img/sortie.jpg" alt="Alice Beaujoin et un groupe d'élèves sur une plage couverte de laisse de mer">
+        <div class="b">
+          <p class="meta">Atelier 8 · 6 à 13 ans · 60 min</p>
+          <h3>Du Léman à la mer</h3>
+          <p class="q">Où va ce qui tombe dans le Rhône ?</p>
+          <p>Une maquette de bassin versant, de Genève à la Camargue, sur laquelle on fait pleuvoir. Puis tri d'une laisse de mer reconstituée et tamisage de sable à la recherche de microplastiques.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="img/plongee.jpg" alt="Plongeur en scaphandre autonome au-dessus d'un tombant rocheux, aux Galápagos" style="object-position:50% 33%">
+        <div class="b">
+          <p class="meta">Atelier 9 · 8 à 16 ans · 60 min</p>
+          <h3>Dans la peau d'un plongeur</h3>
+          <p class="q">Pourquoi ne peut-on pas descendre aussi profond qu'on veut ?</p>
+          <p>Expériences de pression avec seringues et ballons, essayage du matériel, signes de plongée, puis mission muette en équipe : réaliser un comptage de poissons sur un récif dessiné au sol.</p>
+        </div>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Illustration : un aquarium dont on vient de retirer la cloison, l'eau froide et salée bleue glisse sous l'eau chaude rouge" style="width:100%;aspect-ratio:16/10;display:block;background:#0a2a36">
+<!-- aquarium -->
+<path d="M34 62 L44 52 L286 52 L276 62 Z" fill="#f2f7f6" opacity=".18"/>
+<path d="M276 62 L286 52 L286 160 L276 170 Z" fill="#f2f7f6" opacity=".12"/>
+<rect x="34" y="62" width="242" height="108" fill="#0f3c4c"/>
+<!-- eau chaude rouge, en haut, qui s'étale vers la droite -->
+<rect x="36" y="72" width="238" height="96" fill="#ff6b4a" opacity=".92"/><path d="M274 80 C262 100 250 108 230 112 C204 116 186 124 164 134 C140 144 116 150 92 154 C70 158 52 160 36 160 V168 H274 Z" fill="#9b6fd6" opacity=".55"/>
+<!-- eau froide bleue, langue qui glisse au fond vers la gauche -->
+<path d="M274 72 V168 H36 V156 C60 158 84 150 104 148 C126 146 146 136 166 128 C190 118 210 108 236 106 C252 104 262 96 274 72 Z" fill="#2f7fd6"/>
+<!-- tourbillons de mélange -->
+<g fill="none" stroke="#f2f7f6" stroke-opacity=".55" stroke-width="1.4" stroke-linecap="round">
+<path d="M150 128 c4 -6 12 -4 10 2 c-2 4 -8 3 -6 -1"/><path d="M200 112 c4 -6 12 -4 10 2 c-2 4 -8 3 -6 -1"/><path d="M110 140 c4 -6 12 -4 10 2"/></g>
+<!-- flèches -->
+<g fill="none" stroke="#f2f7f6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M90 86 C140 82 190 82 244 86"/><path d="M236 80 l9 6 l-9 6"/>
+<path d="M250 150 C200 156 140 160 64 162"/><path d="M72 156 l-9 6 l9 6"/></g>
+<rect x="34" y="62" width="242" height="108" fill="none" stroke="#ecdcc0" stroke-width="2"/>
+<!-- surface -->
+<path d="M36 72 H274" stroke="#f2f7f6" stroke-opacity=".6" stroke-width="1.2"/>
+<!-- cloison soulevée -->
+<g transform="translate(150 4)"><rect width="10" height="42" rx="2" fill="#ecdcc0"/><rect x="-6" y="-2" width="22" height="7" rx="3" fill="#ff7d5c"/></g>
+<g fill="none" stroke="#ecdcc0" stroke-width="1.6" stroke-linecap="round"><path d="M172 30 v-14"/><path d="M167 21 l5 -6 l5 6"/></g>
+<!-- côté chaud : thermomètre -->
+<g transform="translate(52 18)"><rect x="-3" y="0" width="6" height="26" rx="3" fill="#f2f7f6"/><rect x="-1.4" y="8" width="2.8" height="18" fill="#ff6b4a"/><circle cy="30" r="6" fill="#ff6b4a"/></g>
+<text x="66" y="34" font-family="JetBrains Mono, monospace" font-size="8" fill="#ecdcc0">CHAUD</text>
+<!-- côté froid : glaçon + sel -->
+<g transform="translate(236 20)"><rect width="14" height="14" rx="3" fill="#bfe6ff" transform="rotate(12 7 7)"/><rect x="3" y="3" width="5" height="3" rx="1" fill="#f2f7f6" opacity=".8" transform="rotate(12 7 7)"/></g>
+<g transform="translate(258 14)"><rect width="14" height="20" rx="4" fill="#f2f7f6"/><rect x="2" y="-4" width="10" height="6" rx="2" fill="#ecdcc0"/><g fill="#03131b"><circle cx="5" cy="-2" r=".9"/><circle cx="9" cy="-2" r=".9"/></g></g>
+<text x="230" y="50" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="8" fill="#ecdcc0">FROID + SEL</text>
+<text x="160" y="192" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#ecdcc0" letter-spacing="1.2" opacity=".85">PRÉDIRE · VERSER · OBSERVER</text>
+</svg>
+        <div class="b">
+          <p class="meta">Atelier 10 · 9 à 16 ans · 45 min</p>
+          <h3>Courants en couleurs</h3>
+          <p class="q">Qu'est-ce qui fait bouger l'océan ?</p>
+          <p>Dans un aquarium, eau chaude rouge et eau froide salée bleue. Les élèves prédisent, versent, observent les masses d'eau glisser l'une sous l'autre, et comprennent le moteur des grands courants.</p>
+        </div>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Illustration : une boîte mystère au couvercle percé, une baguette graduée sonde le relief caché, et la carte des fonds coloriée case par case" style="width:100%;aspect-ratio:16/10;display:block;background:#0a2a36">
+<!-- boite : couvercle perforé -->
+<path d="M26 48 L34 40 L190 40 L182 48 Z" fill="#f7efe0"/>
+<rect x="26" y="48" width="156" height="12" fill="#ecdcc0"/>
+<ellipse cx="40" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="54" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="68" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="82" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="96" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="110" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="124" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="138" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="152" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/><ellipse cx="166" cy="54" rx="3.4" ry="2" fill="#03131b" opacity=".55"/>
+<!-- coupe : intérieur caché -->
+<rect x="26" y="60" width="156" height="110" fill="#0f3c4c"/>
+<path d="M182 48 L190 40 L190 162 L182 170 Z" fill="#c9b893"/>
+<g fill="none" stroke="#62d6c5" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="3 4"><path d="M30 76 H178"/><path d="M30 96 H178"/><path d="M30 116 H178"/><path d="M30 136 H178"/></g>
+<path d="M26 170 L26 154 C44 152 56 146 70 132 C84 116 92 100 108 96 C122 92 132 100 142 116 C152 132 164 142 182 146 L182 170 Z" fill="#62d6c5"/>
+
+<!-- poisson -->
+<g transform="translate(58 92)"><path d="M-8 0 C-4 -5 4 -5 7 0 C4 5 -4 5 -8 0 Z" fill="#ecdcc0"/><path d="M6 0 L11 -4 L11 4 Z" fill="#ecdcc0"/><circle cx="-4" cy="-1" r="1" fill="#03131b"/></g>
+<rect x="26" y="60" width="156" height="110" fill="none" stroke="#ecdcc0" stroke-width="2"/>
+<!-- baguette graduée -->
+<rect x="121.5" y="12" width="5" height="86" rx="1.5" fill="#f2f7f6"/>
+<g stroke="#03131b" stroke-width="1.2"><path d="M121.5 18 h4"/><path d="M121.5 26 h4"/><path d="M121.5 34 h4"/><path d="M121.5 42 h4"/><path d="M121.5 50 h4"/><path d="M121.5 58 h4"/><path d="M121.5 66 h4"/><path d="M121.5 74 h4"/><path d="M121.5 82 h4"/><path d="M121.5 90 h4"/></g>
+<rect x="119.5" y="44" width="9" height="4" rx="1" fill="#ff7d5c"/>
+<circle cx="124" cy="98" r="3" fill="#ff7d5c"/>
+<text x="132" y="24" font-family="JetBrains Mono, monospace" font-size="8" fill="#ecdcc0">6 cm</text>
+<!-- carte coloriée -->
+<g transform="rotate(4 250 110)">
+<rect x="198" y="40" width="104" height="118" rx="5" fill="#f2f7f6"/>
+<text x="250" y="51" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#03131b" letter-spacing=".6">CARTE DES FONDS</text>
+<rect x="208" y="56" width="12" height="12" fill="#134e62"/><rect x="220" y="56" width="12" height="12" fill="#134e62"/><rect x="232" y="56" width="12" height="12" fill="#1d6f8a"/><rect x="244" y="56" width="12" height="12" fill="#1d6f8a"/><rect x="256" y="56" width="12" height="12" fill="#1d6f8a"/><rect x="268" y="56" width="12" height="12" fill="#134e62"/><rect x="280" y="56" width="12" height="12" fill="#134e62"/><rect x="208" y="68" width="12" height="12" fill="#134e62"/><rect x="220" y="68" width="12" height="12" fill="#1d6f8a"/><rect x="232" y="68" width="12" height="12" fill="#2f9fb0"/><rect x="244" y="68" width="12" height="12" fill="#62d6c5"/><rect x="256" y="68" width="12" height="12" fill="#2f9fb0"/><rect x="268" y="68" width="12" height="12" fill="#1d6f8a"/><rect x="280" y="68" width="12" height="12" fill="#134e62"/><rect x="208" y="80" width="12" height="12" fill="#1d6f8a"/><rect x="220" y="80" width="12" height="12" fill="#2f9fb0"/><rect x="232" y="80" width="12" height="12" fill="#9fe3d6"/><rect x="244" y="80" width="12" height="12" fill="#ecdcc0"/><rect x="256" y="80" width="12" height="12" fill="#9fe3d6"/><rect x="268" y="80" width="12" height="12" fill="#2f9fb0"/><rect x="280" y="80" width="12" height="12" fill="#1d6f8a"/><rect x="208" y="92" width="12" height="12" fill="#1d6f8a"/><rect x="220" y="92" width="12" height="12" fill="#62d6c5"/><rect x="232" y="92" width="12" height="12" fill="#ecdcc0"/><rect x="244" y="92" width="12" height="12" fill="#ecdcc0"/><rect x="256" y="92" width="12" height="12" fill="#9fe3d6"/><rect x="268" y="92" width="12" height="12" fill="#62d6c5"/><rect x="280" y="92" width="12" height="12" fill="#1d6f8a"/><rect x="208" y="104" width="12" height="12" fill="#134e62"/><rect x="220" y="104" width="12" height="12" fill="#2f9fb0"/><rect x="232" y="104" width="12" height="12" fill="#62d6c5"/><rect x="244" y="104" width="12" height="12" fill="#9fe3d6"/><rect x="256" y="104" width="12" height="12" fill="#62d6c5"/><rect x="268" y="104" width="12" height="12" fill="#2f9fb0"/><rect x="280" y="104" width="12" height="12" fill="#134e62"/><rect x="208" y="116" width="12" height="12" fill="#134e62"/><rect x="220" y="116" width="12" height="12" fill="#134e62"/><rect x="232" y="116" width="12" height="12" fill="#1d6f8a"/><rect x="244" y="116" width="12" height="12" fill="#2f9fb0"/><rect x="256" y="116" width="12" height="12" fill="#1d6f8a"/><rect x="268" y="116" width="12" height="12" fill="#134e62"/><rect x="280" y="116" width="12" height="12" fill="#134e62"/>
+<g stroke="#f2f7f6" stroke-width=".8"><path d="M208 56 V128"/><path d="M220 56 V128"/><path d="M232 56 V128"/><path d="M244 56 V128"/><path d="M256 56 V128"/><path d="M268 56 V128"/><path d="M280 56 V128"/><path d="M292 56 V128"/><path d="M208 56 H292"/><path d="M208 68 H292"/><path d="M208 80 H292"/><path d="M208 92 H292"/><path d="M208 104 H292"/><path d="M208 116 H292"/><path d="M208 128 H292"/></g>
+<rect x="208" y="138" width="11" height="6" rx="1.5" fill="#ecdcc0"/><rect x="222" y="138" width="11" height="6" rx="1.5" fill="#9fe3d6"/><rect x="236" y="138" width="11" height="6" rx="1.5" fill="#62d6c5"/><rect x="250" y="138" width="11" height="6" rx="1.5" fill="#2f9fb0"/><rect x="264" y="138" width="11" height="6" rx="1.5" fill="#1d6f8a"/><rect x="278" y="138" width="11" height="6" rx="1.5" fill="#134e62"/>
+<text x="208" y="153" font-family="JetBrains Mono, monospace" font-size="5" fill="#03131b" opacity=".6">peu profond</text>
+<text x="292" y="153" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="5" fill="#03131b" opacity=".6">profond</text>
+</g>
+<text x="160" y="194" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#ecdcc0" letter-spacing="1.2" opacity=".85">SONDER · NOTER · COLORIER</text>
+</svg>
+        <div class="b">
+          <p class="meta">Atelier 11 · 9 à 16 ans · 60 min</p>
+          <h3>Cartographes des fonds</h3>
+          <p class="q">Comment dessiner un fond marin qu'on ne voit pas ?</p>
+          <p>Une boîte fermée cache un relief. Les élèves le sondent avec une tige graduée par une grille de trous, reportent les profondeurs et tracent leur carte, comme un sondeur de bathymétrie. On ouvre la boîte à la fin.</p>
+        </div>
+      </article>
+      <article class="card">
+        <svg viewBox="0 0 320 200" role="img" aria-label="Illustration : cinq cartes du jeu des 7 familles de la mer, en éventail" style="width:100%;aspect-ratio:16/10;display:block;background:#0a2a36">
+<g opacity=".25" fill="none" stroke="#62d6c5" stroke-width="2"><path d="M0 176 C40 166 80 166 120 176 S200 186 240 176 S300 166 320 172"/></g>
+<g transform="translate(52 112) rotate(-14)"><rect x="-30" y="-50" width="60" height="100" rx="7" fill="#f2f7f6" stroke="#03131b" stroke-opacity=".25"/><rect x="-25" y="-44" width="50" height="56" rx="4" fill="#62d6c5"/><g transform="translate(0 -16) scale(.85)"><g fill="none" stroke="#3fae7c" stroke-width="4" stroke-linecap="round"><path d="M-10 22 C-16 8 -4 -2 -10 -20"/><path d="M2 22 C8 6 -4 -6 4 -24"/><path d="M13 22 C18 10 10 0 15 -12"/></g></g><text x="0" y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#03131b" letter-spacing=".5">ALGUES</text><rect x="-16" y="38" width="32" height="3" rx="1.5" fill="#03131b" opacity=".18"/></g><g transform="translate(106 102) rotate(-7)"><rect x="-30" y="-50" width="60" height="100" rx="7" fill="#f2f7f6" stroke="#03131b" stroke-opacity=".25"/><rect x="-25" y="-44" width="50" height="56" rx="4" fill="#0a2a36"/><g transform="translate(0 -16) scale(.85)"><path d="M-18 0 C-8 -12 10 -12 16 0 C10 12 -8 12 -18 0 Z" fill="#ecdcc0"/><path d="M14 0 L24 -9 L24 9 Z" fill="#ecdcc0"/><circle cx="-9" cy="-2" r="2" fill="#03131b"/></g><text x="0" y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#03131b" letter-spacing=".5">POISSONS</text><rect x="-16" y="38" width="32" height="3" rx="1.5" fill="#03131b" opacity=".18"/></g><g transform="translate(160 98) rotate(0)"><rect x="-30" y="-50" width="60" height="100" rx="7" fill="#f2f7f6" stroke="#03131b" stroke-opacity=".25"/><rect x="-25" y="-44" width="50" height="56" rx="4" fill="#17475a"/><g transform="translate(0 -16) scale(.85)"><path d="M-22 6 C-8 -2 8 -2 22 4 L18 10 C6 12 -8 12 -22 6 Z" fill="#62d6c5"/><path d="M-2 0 L4 -16 L9 0 Z" fill="#62d6c5"/></g><text x="0" y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#03131b" letter-spacing=".5">REQUINS</text><rect x="-16" y="38" width="32" height="3" rx="1.5" fill="#03131b" opacity=".18"/></g><g transform="translate(214 102) rotate(7)"><rect x="-30" y="-50" width="60" height="100" rx="7" fill="#f2f7f6" stroke="#03131b" stroke-opacity=".25"/><rect x="-25" y="-44" width="50" height="56" rx="4" fill="#17475a"/><g transform="translate(0 -16) scale(.85)"><ellipse rx="13" ry="9" fill="#ff7d5c"/><g stroke="#ff7d5c" stroke-width="2.5" stroke-linecap="round" fill="none"><path d="M-12 -4 L-20 -12 M12 -4 L20 -12 M-11 4 L-20 8 M11 4 L20 8 M-8 8 L-14 15 M8 8 L14 15"/></g><circle cx="-21" cy="-14" r="4" fill="#ff7d5c"/><circle cx="21" cy="-14" r="4" fill="#ff7d5c"/></g><text x="0" y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#03131b" letter-spacing=".5">CRUSTACÉS</text><rect x="-16" y="38" width="32" height="3" rx="1.5" fill="#03131b" opacity=".18"/></g><g transform="translate(268 112) rotate(14)"><rect x="-30" y="-50" width="60" height="100" rx="7" fill="#f2f7f6" stroke="#03131b" stroke-opacity=".25"/><rect x="-25" y="-44" width="50" height="56" rx="4" fill="#3b8fe0"/><g transform="translate(0 -16) scale(.85)"><path d="M-22 4 C-12 -10 -4 -8 0 0 C4 -8 12 -10 22 4" fill="none" stroke="#f2f7f6" stroke-width="4" stroke-linecap="round"/><path d="M0 0 l3 8" stroke="#ff7d5c" stroke-width="3" stroke-linecap="round"/></g><text x="0" y="34" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#03131b" letter-spacing=".5">OISEAUX</text><rect x="-16" y="38" width="32" height="3" rx="1.5" fill="#03131b" opacity=".18"/></g>
+</svg>
+        <div class="b">
+          <p class="meta">Atelier 12 · 6 à 12 ans · 45 min</p>
+          <h3>Le jeu des 7 familles de la mer</h3>
+          <p class="q">Une baleine, est-ce un poisson ? Et la posidonie, une algue ?</p>
+          <p>Crustacés, mollusques, poissons, requins et raies, oiseaux marins, algues, plantes marines : un jeu de cartes illustré avec nos photos. Les élèves inventent d'abord leurs propres familles, puis jouent, et débattent des intrus comme la tortue ou le dauphin.</p>
+        </div>
+      </article>
+    </div>
+    <p class="note"><b style="color:var(--sand)">Fil rouge : le carnet de bord.</b> Une grande carte au sol de notre itinéraire et une escale par séance : la classe suit le voyage, compare les milieux rencontrés et complète son propre carnet d'observation.</p>
+  </div>
+</section>
+
+<section id="camion">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">04 · Le van-labo</p>
+      <h2>Un laboratoire qui se gare dans la cour</h2>
+      <p class="lede">Le van de Mathieu, un Volkswagen T6 aménagé, qui transporte tout le matériel, se déploie en vingt minutes et devient lui-même un objet de curiosité. Aucune salle spéciale à réserver, aucun car à louer pour l'école.</p>
+    </div>
+    <div class="van">
+      <svg viewBox="0 0 640 330" role="img" aria-label="Schéma du van-labo vu de côté, porte latérale ouverte et auvent déployé">
+        <rect x="0" y="282" width="640" height="2" fill="#62d6c5" opacity=".4"/>
+        <path d="M70 110 L430 110 L430 270 L70 270 Z" fill="#0d3644" stroke="#62d6c5" stroke-width="1.5"/>
+        <path d="M430 132 L500 132 L548 192 L560 196 L560 270 L430 270 Z" fill="#0d3644" stroke="#62d6c5" stroke-width="1.5"/>
+        <path d="M444 144 L494 144 L530 190 L444 190 Z" fill="#17475a"/>
+        <circle cx="150" cy="274" r="27" fill="#03131b" stroke="#62d6c5" stroke-width="1.5"/><circle cx="150" cy="274" r="9" fill="#17475a"/>
+        <circle cx="486" cy="274" r="27" fill="#03131b" stroke="#62d6c5" stroke-width="1.5"/><circle cx="486" cy="274" r="9" fill="#17475a"/>
+        <path d="M70 110 L20 60 L330 60 L380 110" fill="rgba(255,125,92,.18)" stroke="#ff7d5c" stroke-width="1.5"/>
+        <path d="M22 62 L22 280 M110 62 L110 110" stroke="#ff7d5c" stroke-width="1.5"/>
+        <rect x="200" y="122" width="170" height="136" fill="#06202a" stroke="#62d6c5" stroke-width="1"/>
+        <rect x="212" y="134" width="64" height="40" fill="#17475a"/><rect x="286" y="134" width="72" height="18" fill="#17475a"/><rect x="286" y="158" width="72" height="18" fill="#17475a"/>
+        <rect x="212" y="186" width="146" height="14" fill="#62d6c5" opacity=".5"/>
+        <rect x="212" y="208" width="44" height="42" fill="#17475a"/><rect x="262" y="208" width="44" height="42" fill="#17475a"/><rect x="312" y="208" width="46" height="42" fill="#17475a"/>
+        <path d="M88 150 C104 136 130 132 150 134 L160 122 L166 136 C176 138 184 142 190 146 L186 152 C170 160 120 162 88 150 Z" fill="#62d6c5" opacity=".85"/>
+        <text x="100" y="186" font-size="12" fill="#ecdcc0">SEANATURA</text>
+        <rect x="34" y="232" width="150" height="14" fill="#62d6c5" opacity=".35" stroke="#62d6c5"/>
+        <path d="M44 246 L44 280 M174 246 L174 280" stroke="#62d6c5" stroke-width="1.5"/>
+        <g font-size="12" fill="#03131b" text-anchor="middle">
+          <circle cx="200" cy="60" r="12" fill="#ff7d5c"/><text x="200" y="64">1</text>
+          <circle cx="244" cy="154" r="12" fill="#ff7d5c"/><text x="244" y="158">2</text>
+          <circle cx="285" cy="193" r="12" fill="#ff7d5c"/><text x="285" y="197">3</text>
+          <circle cx="110" cy="239" r="12" fill="#ff7d5c"/><text x="110" y="243">4</text>
+          <circle cx="335" cy="229" r="12" fill="#ff7d5c"/><text x="335" y="233">5</text>
+          <circle cx="138" cy="118" r="12" fill="#ff7d5c"/><text x="138" y="122">6</text>
+        </g>
+      </svg>
+      <ol class="kit">
+        <li><span><b>Auvent et tapis de sol.</b> Une classe dehors par tous les temps, quatre îlots de travail en rotation.</span></li>
+        <li><span><b>Écran et loupes binoculaires.</b> Le plancton projeté en grand, nos images sous-marines, les spectrogrammes.</span></li>
+        <li><span><b>Paillasse humide.</b> Bacs, aquarium à courants, colonne d'eau pour la course de plancton.</span></li>
+        <li><span><b>Canal à houle sur tréteaux.</b> Il sort du coffre arrière et se monte devant le van.</span></li>
+        <li><span><b>Caisses d'ateliers.</b> Une caisse par atelier, numérotée : aimants du requin, becs, jeu de pêche, matériel de plongée.</span></li>
+        <li><span><b>La tête de requin.</b> Imprimée en 3D et fixée sur le flanc du van, elle sert de tableau aimanté et de signal de ralliement.</span></li>
+      </ol>
+    </div>
+    <p class="note">Utiliser le van de Mathieu évite d'acheter un véhicule : seul son aménagement est à financer (auvent, rangements, énergie, marquage). Les ateliers tiennent aussi dans de simples caisses, ce qui permet de mener les séances pilotes avant la fin de l'aménagement.</p>
+  </div>
+</section>
+
+<section id="mer">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">05 · Classes de mer</p>
+      <h2>Après la classe, le large : trois jours en Méditerranée</h2>
+      <p class="lede">Aboutissement du parcours pour les classes volontaires : un séjour à Marseille, accessible en train depuis Genève, où les élèves refont sur le terrain ce qu'ils ont appris en atelier.</p>
+    </div>
+    <div class="days">
+      <div class="day">
+        <img src="img/dunes.jpg" alt="Alice Beaujoin présente une fiche d'identification d'oiseau à un groupe dans les dunes">
+        <div class="b"><p class="meta">Jour 1 · à pied</p><h3>Lire le rivage</h3><p>Dunes, lagunes et laisse de mer. Inventaire naturaliste, tri des déchets échoués, prélèvement d'eau pour le microscope du soir.</p></div>
+      </div>
+      <div class="day">
+        <img src="img/antarctic.jpg" alt="Le voilier rouge Antarctic au mouillage devant une île de Méditerranée">
+        <div class="b"><p class="meta">Jour 2 · en mer</p><h3>À bord d'Antarctic</h3><p>Une journée sur un vrai voilier d'expédition, vers les îles du Frioul ou l'archipel de Riou. Observation des dauphins et des oiseaux marins avec un vrai protocole de comptage, trait de filet à plancton, écoute à l'hydrophone.</p></div>
+      </div>
+      <div class="day">
+        <img src="img/jumelles.jpg" alt="Alice Beaujoin aide une enfant à observer la mer aux jumelles">
+        <div class="b"><p class="meta">Jour 3 · rencontre</p><h3>Ceux qui protègent</h3><p>Rencontre avec les gestionnaires d'un espace protégé, par exemple le Parc national des Calanques, restitution des données de la classe, et engagement à rapporter à l'école.</p></div>
+      </div>
+    </div>
+    <div class="split">
+      <div class="stack">
+        <h3 style="font-size:1.5rem;color:var(--sand)">Un format déjà pratiqué</h3>
+        <p class="txt">Au Seaquarium Institut Marin du Grau-du-Roi, Alice a <strong>organisé des sorties pédagogiques en mer à bord d'un voilier</strong> et accompagné pendant deux ans une classe de CM1 dans la gestion de son Aire Marine Éducative. Elle y a aussi coordonné des suivis d'oiseaux marins et de cétacés.</p>
+        <p class="txt"><strong>Le voilier Antarctic, en partenariat avec Ocean Kids &amp; Co.</strong> L'association <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a> est prête à accueillir les classes suisses à bord de son voilier <a href="https://www.voilierantarctic.com/">Antarctic</a>, basé à Marseille, qui peut embarquer une classe entière : 33 personnes à la journée, en plus de ses deux marins. À bord, selon le programme : snorkeling, jumelles, drones, tablettes et matériel d'observation.</p>
+        <p class="txt">Les sorties se font avec l'équipage du bateau. Le cadre (autorisations des directions, encadrement, assurances, transport) sera établi avec chaque établissement.</p>
+      </div>
+      <img src="img/voilier.jpg" alt="Alice Beaujoin et une équipière, jumelles en main, sur le pont d'un voilier en mer" style="aspect-ratio:4/3">
+    </div>
+    <div class="partner">
+      <span class="mono">Partenaire des classes de mer</span>
+      <p><b><a href="https://www.oceankidsco.org/" style="color:var(--foam)">Ocean Kids &amp; Co</a></b> · voilier Antarctic, 20 m, basé à Marseille. <a href="https://www.oceankidsco.org/">Découvrir Ocean Kids &amp; Co</a> · <a href="https://www.voilierantarctic.com/">Le voilier Antarctic</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="voyage">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">06 · La matière première</p>
+      <h2>Toutes les images des ateliers viennent de notre voyage</h2>
+      <p class="lede">Chaque image a une histoire, et nous pouvons répondre à toutes les questions qu'elle soulève.</p>
+    </div>
+    <div class="strip">
+      <figure><img src="img/marteaux.jpg" alt="Banc de requins-marteaux"><figcaption>Requins-marteaux · Galápagos</figcaption></figure>
+      <figure><img src="img/rb2.jpg" alt="Requin-baleine de profil"><figcaption>Requin-baleine · Basse-Californie</figcaption></figure>
+      <figure><img src="img/manchot.jpg" alt="Manchot debout sur un rocher au bord de l'eau"><figcaption>Manchot · Galápagos</figcaption></figure>
+      <figure><img src="img/fregates.jpg" alt="Deux frégates en vol"><figcaption>Frégates en vol</figcaption></figure>
+      <figure><img src="img/pelican.jpg" alt="Pélican brun, tête jaune et bec orange"><figcaption>Pélican brun · Mexique</figcaption></figure>
+      <figure><img src="img/feu.jpg" alt="Feu de camp et repas au bivouac"><figcaption>Bivouac · Basse-Californie</figcaption></figure>
+    </div>
+    <div class="birds">
+      <figure><img src="img/fregate.jpg" alt="Portrait d'une frégate au bec crochu"><figcaption>Frégate · Galápagos</figcaption></figure>
+      <figure><img src="img/otarie.jpg" alt="Otarie dressée sur un rocher"><figcaption>Otarie · Pérou</figcaption></figure>
+      <figure><img src="img/fous.jpg" alt="Colonie de fous à pieds bleus sur une falaise"><figcaption>Fous à pieds bleus · Pérou</figcaption></figure>
+      <figure><img src="img/huitrier.jpg" alt="Huîtrier au bec rouge sur le sable"><figcaption>Huîtrier · Galápagos</figcaption></figure>
+      <figure><img src="img/requin2.jpg" alt="Requin longeant un récif rocheux au-dessus d'un banc de poissons"><figcaption>Requin au-dessus du récif</figcaption></figure>
+      <figure><img src="img/nourrice.jpg" alt="Requin posé sur un fond de sable clair, en eau peu profonde" style="object-position:50% 70%"><figcaption>Requin sur le sable</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="enligne">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">07 · En ligne</p>
+      <h2>Au-delà des classes : l'océan partagé sur les réseaux</h2>
+      <p class="lede">Les ateliers toucheront plusieurs milliers d'élèves par an. En ligne, nous pouvons en toucher bien plus, à partir de notre compte <a href="https://www.instagram.com/matali_adventures/">@matali_adventures</a> et de nos images sous-marines et aériennes.</p>
+    </div>
+    <div class="online">
+      <div><h3>Une question, une minute</h3><p>Des vidéos courtes de vulgarisation tournées en mer, en plongée ou devant le canal à houle : pourquoi l'iguane marin éternue, comment le requin sent l'électricité.</p></div>
+      <div><h3>Le quiz de la semaine</h3><p>Le format « à qui sont ces motifs ? », déjà testé sur Instagram, pour jouer en famille.</p></div>
+      <div><h3>Le carnet des classes</h3><p>Les coulisses des parcours et des classes de mer, et des ressources pour les enseignants qui veulent prolonger l'atelier.</p></div>
+      <div><h3>Nos partenaires en avant</h3><p>Chaque soutien apparaît sur le site, sur le van, dans les vidéos qu'il finance et dans un bilan annuel.</p></div>
+    </div>
+    <p class="note">Aucun visage d'élève n'est publié sans l'autorisation écrite des parents et l'accord de l'école. Par défaut, nous filmons les mains, les maquettes et les animaux.</p>
+  </div>
+</section>
+
+<section id="equipe">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">08 · L'équipe</p>
+      <h2>Le vivant et la physique de la mer, dans le même van</h2>
+      <p class="lede">Une biologiste qui a plusieurs années de médiation scolaire derrière elle, un ingénieur qui modélise les vagues. Les deux regards qu'il faut pour expliquer un littoral.</p>
+    </div>
+    <div class="team">
+      <article class="who top al">
+        <img src="img/portrait.jpg" alt="Alice Beaujoin observe le large aux jumelles depuis une plage">
+        <div class="b">
+          <div><h3>Alice Beaujoin</h3><p class="role">Biologiste marine · ornithologue · médiatrice scientifique</p></div>
+          <ul class="cv">
+            <li><span>Formation</span><span><b>Master BEST-ALI en biologie marine</b>, Université de La Réunion, après une licence SVT parcours Mer.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="who top ma">
+        <img src="img/surf.jpg" alt="Mathieu Soulayrol en combinaison, en train de surfer une vague" style="object-position:40% 50%">
+        <div class="b">
+          <div><h3>Mathieu Soulayrol</h3><p class="role">Ingénieur océanographe · génie côtier</p></div>
+          <ul class="cv">
+            <li><span>Formation</span><span><b>Master Génie côtier et dynamique littorale</b>, Université de Montpellier, et D.U. Restauration écologique des petits fonds marins côtiers.</span></li>
+          </ul>
+        </div>
+      </article>
+      <div class="together">
+        <div class="tg-head"><span class="mono">2025 – 2026 · Ensemble</span><h3>Une année de voyage, à deux</h3></div>
+        <p>Traversée de l'Atlantique à la voile, environ 2 000 milles de la Méditerranée aux Caraïbes, puis l'Amérique centrale et du Sud jusqu'au Pacifique. Plongées avec les requins-marteaux aux Galápagos, missions dans des centres de protection de l'environnement, dont un centre pour primates en Équateur.</p>
+      </div>
+      <article class="who bottom al">
+        <div class="b">
+          <ul class="cv">
+            <li><span>2023 – 2025</span><span><b>Seaquarium Institut Marin.</b> Animations scolaires, Aire Marine Éducative avec une classe de CM1 pendant deux ans, sorties en mer, suivis d'oiseaux marins et de cétacés, textes de l'exposition « Ailes de Méditerranée ».</span></li>
+            <li><span>2022 – 2023</span><span><b>CPIE.</b> Responsable du pôle biodiversité, animations scolaires, sorties naturalistes, encadrement de bénévoles.</span></li>
+            <li><span>2021 – 2022</span><span><b>LPO PACA.</b> Inventaires et suivis naturalistes, bioacoustique, rallyes nature.</span></li>
+            <li><span>2020</span><span><b>Île d'Europa (TAAF, UMR ENTROPIE).</b> Mission scientifique : baguage et suivi d'oiseaux marins, bioacoustique.</span></li>
+            <li><span>Brevets</span><span>Plongée professionnelle (classe 0B), PA20, BAFA, PSC1, permis côtier.</span></li>
+          </ul>
+          <p><a href="https://claude.ai/artifact/DaU1SgarZsWeaLVEXnNYKc">Voir le portfolio complet d'Alice</a></p>
+        </div>
+      </article>
+      <article class="who bottom ma">
+        <div class="b">
+          <ul class="cv">
+            <li><span>2022 – 2025</span><span><b>Lineup Ocean.</b> Ingénieur R&amp;D et second du dirigeant : récifs biomimétiques, essais en canal à houle et suivis en mer, projet européen LIFE retenu, études de submersion pour les collectivités, encadrement d'une dizaine de stagiaires.</span></li>
+            <li><span>2021</span><span><b>CNRS × Terre Natura Géotechnique, Polynésie française.</b> Un mois de terrain à Maupiti sur le risque de submersion marine.</span></li>
+            <li><span>2021</span><span><b>Faculté des Sciences de Montpellier.</b> Tuteur d'étudiants de première année.</span></li>
+            <li><span>Brevets</span><span>Scaphandrier scientifique (CAH classe I mention B), PA40, permis bateau côtier.</span></li>
+            <li><span>Aux ateliers</span><span>Conçoit et fabrique le canal à houle, l'outil de son métier, l'aquarium à courants et les maquettes imprimées en 3D.</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="calendrier">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">09 · Formats et calendrier</p>
+      <h2>Ce qu'il faut réunir pour ouvrir en septembre 2027</h2>
+    </div>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Format</th><th>Durée</th><th>Pour qui</th><th>Contenu</th></tr></thead>
+        <tbody>
+          <tr><td>Atelier découverte</td><td>90 min</td><td>1 classe</td><td>Deux ateliers en demi-groupes, dessins avant / après.</td></tr>
+          <tr><td>Journée van-labo</td><td>1 jour</td><td>2 à 4 classes en rotation</td><td>Le van dans la cour, quatre ateliers tournants par classe.</td></tr>
+          <tr><td>Parcours « Du Léman à la mer »</td><td>4 à 6 séances sur l'année</td><td>1 classe et son enseignant</td><td>Projet coconstruit avec l'école, carnet de bord, restitution publique. Format adapté aux dispositifs de soutien du DIP.</td></tr>
+          <tr><td>Classe de mer</td><td>3 jours</td><td>Classes ayant suivi le parcours</td><td>Séjour en Méditerranée avec sortie bateau.</td></tr>
+          <tr><td>Événements</td><td>à la carte</td><td>Communes, festivals, parascolaire</td><td>Stand van-labo, ateliers courts, exposition photo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine">Premiers raccords proposés avec le Plan d'études romand, cycle 2 : MSN 26 (phénomènes naturels et techniques), MSN 28 (diversité du vivant), FG 26-27 (interdépendances). À préciser atelier par atelier, et à faire valider.</p>
+
+    <h3 style="font-size:1.3rem;color:var(--sand);margin:48px 0 26px">Rétroplanning</h3>
+    <ol class="tl">
+      <li class="key"><span class="when">Déc. 2026 – févr. 2027</span><h3>Décision</h3><p>Structure porteuse en Suisse, dépôt des demandes de financement pour la préparation.</p></li>
+      <li><span class="when">Mars – avril 2027</span><h3>Fabrication</h3><p>Début de la phase 1. Tête de requin imprimée en 3D, canal à houle, fiches par atelier.</p></li>
+      <li><span class="when">Mai – juin 2027</span><h3>Pilotes</h3><p>Trois interventions dans des classes genevoises, évaluation avec les enseignants.</p></li>
+      <li><span class="when">Été 2027</span><h3>Van</h3><p>Aménagement du van, programmation de l'année avec les écoles et le voilier Antarctic.</p></li>
+      <li class="key"><span class="when">Septembre 2027</span><h3>Lancement</h3><p>Première année scolaire complète. Première classe de mer au printemps 2028.</p></li>
+    </ol>
+
+    <div class="ask">
+      <h3>Ce qui se décide cet hiver</h3>
+      <p>Pour ouvrir en septembre 2027, la préparation doit démarrer en mars. Certaines fondations demandent un dépôt quatre mois avant le début du projet : il nous faut donc dans les prochaines semaines une structure porteuse et les premières demandes déposées.</p>
+      <p>Nous sommes tous les deux disponibles pour nous y consacrer : à mi-temps pendant la préparation, de mars à août 2027, puis à plein temps. Trois questions sont ouvertes : qui porte le projet en Suisse, quels premiers financeurs solliciter, et quelle part de prestations les écoles et communes genevoises peuvent absorber dès la première année.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <h2>Parlons-en, et venez essayer le canal à houle.</h2>
+    <dl>
+      <dt>Alice Beaujoin</dt><dd>albeaujoin@gmail.com · +33 6 84 84 26 16</dd>
+      <dt>Mathieu Soulayrol</dt><dd>mathieu.soulayrol@gmail.com · +33 7 55 68 96 55</dd>
+      <dt>Projet</dt><dd>SEANATURA, association en cours de création. Nom provisoire.</dd>
+    </dl>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><p style="margin-bottom:8px">Classes de mer en partenariat avec <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a>, à bord du <a href="https://www.voilierantarctic.com/">voilier Antarctic</a>. Suivez le voyage sur Instagram : <a href="https://www.instagram.com/matali_adventures/">@matali_adventures</a></p>© Matali, Alice Beaujoin et Mathieu Soulayrol, tous droits réservés. Les photos et les textes de ce site ne peuvent pas être reproduits sans notre autorisation. Photographies : Alice Beaujoin et Mathieu Soulayrol, sauf photos de médiation (Seaquarium Institut Marin). Les trois démonstrations interactives sont des illustrations simplifiées des ateliers, pas des modèles scientifiques.</div></footer>
+
+<script>
+(function(){
+  /* Jauge d'altitude : +372 m en haut de page, 0 m à 22 % du défilement, -40 m en bas */
+  var mark=document.getElementById('gmark'), read=document.getElementById('gread');
+  function gauge(){
+    var max=document.documentElement.scrollHeight-innerHeight, p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+    var alt=p<.22 ? 372*(1-p/.22) : -40*(p-.22)/.78;
+    mark.style.top=read.style.top=(p*100)+'%';
+    var r=Math.round(alt); read.textContent=(r>0?'+':r<0?'−':'')+Math.abs(r)+' m';
+  }
+  addEventListener('scroll',gauge,{passive:true}); addEventListener('resize',gauge); gauge();
+
+  /* Les sens du requin */
+  var senses=[
+    {k:'ouie',n:'Ouïe',d:'plus d\'un kilomètre',t:'Les sons graves d\'un poisson qui se débat voyagent très loin dans l\'eau. C\'est le premier signal.'},
+    {k:'odorat',n:'Odorat',d:'plusieurs centaines de mètres',t:'Ses narines ne servent pas à respirer, seulement à sentir. Il remonte la piste en zigzag.'},
+    {k:'ligne',n:'Ligne latérale',d:'une centaine de mètres',t:'Un sens que nous n\'avons pas : elle capte les vibrations de l\'eau le long de tout le corps.'},
+    {k:'vue',n:'Vue',d:'quelques dizaines de mètres',t:'Très sensible en faible lumière, grâce à un miroir au fond de l\'œil, comme chez le chat.'},
+    {k:'elec',n:'Sens électrique',d:'moins d\'un mètre',t:'Les ampoules de Lorenzini détectent l\'électricité des muscles d\'une proie, même enfouie sous le sable.'},
+    {k:'gout',n:'Goût',d:'au contact',t:'Il goûte avant d\'avaler. Ce qui ne lui convient pas est recraché.'}
+  ];
+  var box=document.getElementById('schips'), out=document.getElementById('sout'), step=0;
+  var order=[3,5,0,4,1,2];
+  order.forEach(function(i){
+    var s=senses[i], b=document.createElement('button');
+    b.type='button'; b.className='chip'; b.textContent=s.n;
+    b.addEventListener('click',function(){
+      if(b.classList.contains('done')) return;
+      if(i===step){
+        b.classList.add('done'); b.textContent=(step+1)+'. '+s.n;
+        document.querySelector('#shark [data-k="'+s.k+'"]').classList.add('on');
+        step++;
+        out.innerHTML='<b>'+s.n+' : '+s.d+'.</b> '+s.t+(step===6?'<small>Six sur six. En classe, les élèves posent les aimants sur la maquette et débattent de l\'ordre avant de vérifier.</small>':'<small>Ordres de grandeur, variables selon les espèces. Suivant ?</small>');
+      } else {
+        b.classList.remove('no'); void b.offsetWidth; b.classList.add('no');
+        out.innerHTML='Pas encore. Un autre sens porte plus loin que <b>'+s.n.toLowerCase()+'</b>.';
+      }
+    });
+    box.appendChild(b);
+  });
+
+  /* Quiz des motifs */
+  var rounds=[
+    {crop:'img/q-raie.jpg',nom:'une raie léopard',full:'img/raie.jpg',alt:'Raie léopard posée sur le sable',hint:'Indice : on peut le croiser sous l\'eau.',opts:['Murène','Raie léopard','Poisson-ballon','Requin-baleine'],a:1,fact:'Chaque raie léopard a ses propres taches. Les scientifiques photographient son dos pour la reconnaître et suivre ses déplacements.'},
+    {crop:'img/q-rb.jpg',nom:'un requin-baleine',full:'img/rb1.jpg',alt:'Requin-baleine vu du ciel',hint:'Indice : c\'est le plus grand poisson du monde.',opts:['Orque','Raie manta','Requin-baleine','Requin-tigre'],a:2,fact:'Les taches situées derrière ses fentes branchiales sont uniques, comme une empreinte digitale. Elles servent à recenser les individus.'},
+    {crop:'img/q-iguane.jpg',nom:'un iguane marin',full:'img/iguane.jpg',pos:'50% 30%',alt:'Tête d\'un iguane marin couverte d\'écailles',hint:'Indice : c\'est le seul lézard au monde qui va brouter sous la mer.',opts:['Crocodile','Caméléon','Iguane marin','Tortue'],a:2,fact:'L\'iguane marin ne vit qu\'aux Galápagos. Il plonge pour brouter les algues, puis éternue le sel en trop grâce à des glandes près des narines.'},
+    {crop:'img/q-fou.jpg',nom:'un fou à pieds bleus',full:'img/fous.jpg',alt:'Colonie de fous à pieds bleus sur une falaise',hint:'Indice : il plonge en piqué pour pêcher.',opts:['Chouette','Goéland','Manchot','Fou à pieds bleus'],a:3,fact:'Les fous à pieds bleus nichent en colonie et pêchent en plongeant comme une flèche depuis plusieurs mètres de haut. Les mâles montrent leurs pieds bleus pour séduire.'},
+    {crop:'img/tortue.jpg',nom:'une tortue marine',full:'img/tortue.jpg',pos:'50% 75%',zoom:{s:4.6,o:'76% 27%'},alt:'Tortue marine nageant devant un banc de poissons aux queues jaunes',hint:'Indice : elle peut rester plusieurs heures sous l\'eau quand elle se repose.',opts:['Pangolin','Tortue marine','Crocodile','Tatou'],a:1,fact:'Sa carapace est couverte de grandes plaques appelées écailles. Celles de la tête dessinent un motif propre à chaque tortue, que les chercheurs utilisent pour les reconnaître.'},
+    {crop:'img/q-pel.jpg',nom:'un pélican brun',full:'img/pelican.jpg',alt:'Pélican brun, tête jaune et bec rouge',hint:'Indice : son bec sert d\'épuisette.',opts:['Pélican brun','Flamant rose','Perroquet','Toucan'],a:0,fact:'Sa poche sous le bec se remplit d\'eau et de poissons, puis il filtre l\'eau avant d\'avaler.'}
+  ];
+  var qi=0, good=0, qimg=document.getElementById('qimg'), qchips=document.getElementById('qchips'), qout=document.getElementById('qout'), qnext=document.getElementById('qnext'), qhint=document.getElementById('qhint'), qscore=document.getElementById('qscore');
+  var qstill=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function swap(src,alt,pos,zoom){ qimg.style.opacity=0; setTimeout(function(){
+    qimg.style.transition='opacity .25s'; qimg.src=src; qimg.alt=alt; qimg.style.objectPosition=pos||'50% 50%';
+    if(zoom){ qimg.style.transformOrigin=zoom.o; qimg.style.transform='scale('+zoom.s+')'; } else { qimg.style.transform='none'; }
+    qimg.style.opacity=1; },180); }
+  function unzoom(){ qimg.style.transition=qstill?'none':'transform 1.8s cubic-bezier(.2,.7,.2,1)'; qimg.style.transform='scale(1)'; }
+  function round(){
+    var r=rounds[qi]; qchips.innerHTML=''; qnext.hidden=true;
+    qscore.textContent='motif '+(qi+1)+' sur '+rounds.length;
+    qhint.textContent='À qui appartient ce motif ? '+r.hint;
+    swap(r.crop,'Gros plan mystère d\'un motif animal',r.zoom?r.pos:'50% 50%',r.zoom);
+    qout.textContent='Choisissez une réponse.';
+    r.opts.forEach(function(o,j){
+      var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=o;
+      b.addEventListener('click',function(){
+        var all=qchips.querySelectorAll('.chip');
+        all.forEach(function(x){ x.disabled=true; });
+        all[r.a].classList.add('ok');
+        if(j===r.a){ good++; qout.innerHTML='<b>Bravo, c\'est '+r.nom+'.</b> '+r.fact; }
+        else { b.classList.add('ko'); qout.innerHTML='<b>Raté, c\'est '+r.nom+'.</b> '+r.fact; }
+        if(r.zoom){ qimg.alt=r.alt; unzoom(); } else { swap(r.full,r.alt,r.pos); }
+        if(qi<rounds.length-1){ qnext.hidden=false; qnext.textContent='Motif suivant'; }
+        else { qnext.hidden=false; qnext.textContent='Rejouer'; qout.innerHTML+='<small>Score : '+good+' sur '+rounds.length+'. En classe, la manche suivante consiste à reconnaître des individus.</small>'; }
+      });
+      qchips.appendChild(b);
+    });
+  }
+  qnext.addEventListener('click',function(){ if(qi<rounds.length-1){ qi++; } else { qi=0; good=0; } round(); });
+  round();
+
+  /* Canal à houle */
+  var cv=document.getElementById('flume'), c=cv.getContext('2d'), W=cv.width, H=cv.height;
+  var modes={
+    none:{k:1,txt:'<b>Sans protection.</b> La vague arrive entière sur la plage et l\'eau atteint la maison.'},
+    herbier:{k:.62,txt:'<b>Herbier de posidonie.</b> Les feuilles freinent l\'eau et retiennent le sable. La vague perd une partie de son énergie, et l\'herbier abrite des centaines d\'espèces.'},
+    recif:{k:.36,txt:'<b>Récif corallien.</b> La houle déferle sur le récif, loin du rivage. C\'est la protection naturelle des îles tropicales, tant que le corail est vivant.'},
+    digue:{k:.2,txt:'<b>Digue en béton.</b> Très efficace sur la vague, mais elle la renvoie vers le large, creuse le sable à son pied et ne laisse aucune place au vivant.'}
+  };
+  var mode='none', cur=1, t=0, fout=document.getElementById('fout');
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function bed(x){ return x<330 ? 262 : 262-(x-330)*.5; }
+  function amp(x){ var a=22; if(x>250) a*= 1-(1-cur)*Math.min(1,(x-250)/50); return a; }
+  function draw(){
+    c.clearRect(0,0,W,H);
+    var sl=170, run=cur*38*(0.75+0.25*Math.sin(t*1.1));
+    /* eau */
+    c.beginPath(); c.moveTo(0,H);
+    var xe=0;
+    for(var x=0;x<=W;x+=4){
+      var y=sl+amp(x)*Math.sin(x*.045-t*2.2)*(x<470?1:Math.max(0,1-(x-470)/60));
+      var top=Math.max(Math.min(y,sl+30), -99);
+      if(top<bed(x)){ c.lineTo(x,top); xe=x; } else break;
+    }
+    var reach=Math.min(W,515+run*2.6);
+    c.lineTo(reach,bed(reach)); c.lineTo(reach,H); c.closePath();
+    c.fillStyle='rgba(98,214,197,.38)'; c.fill();
+    /* fond */
+    c.beginPath(); c.moveTo(0,H); c.lineTo(0,262);
+    for(var x2=0;x2<=W;x2+=10) c.lineTo(x2,bed(x2));
+    c.lineTo(W,H); c.closePath(); c.fillStyle='#ecdcc0'; c.fill();
+    /* protection */
+    if(mode==='herbier'){ c.strokeStyle='#3fae7c'; c.lineWidth=3; for(var i=0;i<16;i++){ var bx=236+i*5.5, sway=Math.sin(t*2.2+i*.5)*8; c.beginPath(); c.moveTo(bx,262); c.quadraticCurveTo(bx+sway*.5,238,bx+sway,216+ (i%3)*6); c.stroke(); } }
+    if(mode==='recif'){ c.fillStyle='#ff7d5c'; c.beginPath(); c.moveTo(232,262); c.quadraticCurveTo(248,170,272,182); c.quadraticCurveTo(292,168,306,262); c.closePath(); c.fill(); }
+    if(mode==='digue'){ c.fillStyle='#a9c1c4'; c.fillRect(262,140,26,122); }
+    /* maison */
+    var hx=560, hy=bed(560);
+    c.fillStyle='#f2f7f6'; c.fillRect(hx,hy-30,34,30);
+    c.fillStyle='#ff7d5c'; c.beginPath(); c.moveTo(hx-5,hy-30); c.lineTo(hx+17,hy-50); c.lineTo(hx+39,hy-30); c.closePath(); c.fill();
+    /* règle */
+    c.strokeStyle='rgba(242,247,246,.5)'; c.lineWidth=1; c.setLineDash([4,4]); c.beginPath(); c.moveTo(reach,bed(reach)-4); c.lineTo(reach,60); c.stroke(); c.setLineDash([]);
+    c.fillStyle='#f2f7f6'; c.font='13px JetBrains Mono, monospace'; c.textAlign='center';
+    c.fillText('eau jusqu\'ici',Math.min(reach,W-60),52);
+    c.textAlign='left'; c.fillStyle='#a9c1c4'; c.fillText('batteur',12,24); c.fillRect(8,60,6,200);
+  }
+  function loop(){
+    cur+=(modes[mode].k-cur)*.06; t+=.016; draw();
+    if(!still) requestAnimationFrame(loop);
+  }
+  function set(m){
+    mode=m; fout.innerHTML=modes[m].txt+'<small>Simulation illustrative. En atelier, les élèves mesurent à la règle sur le vrai canal.</small>';
+    document.querySelectorAll('#fchips .chip').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.m===m?'true':'false'); });
+    if(still){ cur=modes[m].k; draw(); }
+  }
+  document.getElementById('fchips').addEventListener('click',function(e){ var b=e.target.closest('.chip'); if(b) set(b.dataset.m); });
+  set('none'); loop();
+})();
+</script>
+</body>
+</html>
