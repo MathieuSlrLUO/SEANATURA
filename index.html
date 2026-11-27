@@ -242,24 +242,6 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   .nav nav a:nth-child(n+5){display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chip.no{animation:none}}
-
-/* territoires (ajout) */
-.terr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-.terr a.t{display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:inherit;background:var(--plate);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:border-color .2s}
-.terr a.t:hover{border-color:var(--lagoon)}
-.terr img{width:100%;aspect-ratio:16/8;object-fit:cover}
-.terr .b{padding:20px 22px 24px;display:grid;gap:10px;align-content:start}
-.terr h3{font-size:1.5rem;color:var(--sand)}
-.terr p{color:var(--mute);font-size:.97rem}
-.terr .go{font-family:var(--f-display);font-weight:600;color:var(--lagoon)}
-.back{font-size:.9rem;color:var(--mute);text-decoration:none}
-.back:hover{color:var(--foam)}
-.pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.pay>div{border-top:2px solid var(--lagoon);padding-top:14px;display:grid;gap:8px;align-content:start}
-.pay h3{font-size:1.1rem;color:var(--sand)}
-.pay p{color:var(--mute);font-size:.94rem}
-@media (max-width:900px){.terr{grid-template-columns:minmax(0,1fr)}.pay{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.pay{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -268,8 +250,6 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   <div class="wrap">
     <a class="brand" href="index.html"><svg aria-hidden="true" width="34" height="34" viewBox="0 16 200 176"><path d="M44 132 C80 122 104 88 108 26 C116 66 136 104 172 132 Z" fill="#62d6c5"/><path d="M18 148 C38 138 56 138 74 148 C92 158 110 158 128 148 C146 138 164 138 182 148" fill="none" stroke="#ecdcc0" stroke-width="12" stroke-linecap="round"/><path d="M18 172 C38 162 56 162 74 172 C92 182 110 182 128 172 C146 162 164 162 182 172" fill="none" stroke="#62d6c5" stroke-width="12" stroke-linecap="round" opacity=".55"/></svg><span><span style="color:var(--sand)">SEA</span><span style="color:var(--lagoon)">NATURA</span></span></a>
     <nav aria-label="Sections">
-      <a href="suisse.html">Suisse</a>
-      <a href="france.html">France</a>
       <a href="#ateliers">Ateliers</a>
       <a href="#camion">Van-labo</a>
       <a href="#mer">Classes de mer</a>
@@ -302,7 +282,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
       </ul>
       <div class="cta">
         <a class="btn solid" href="#ateliers">Voir les ateliers</a>
-        <a class="btn" href="#territoires">Suisse ou France ?</a>
+        <a class="btn" href="#contact">Nous écrire</a>
       </div>
     </div>
     <figure>
@@ -311,36 +291,6 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
     </figure>
   </div>
 </div>
-
-<section id="territoires">
-  <div class="wrap">
-    <div class="head">
-      <p class="mono">Où nous intervenons</p>
-      <h2>Un même projet, deux territoires</h2>
-      <p class="lede">Les ateliers, le van-labo, l'équipe et le voilier sont les mêmes partout. Ce qui change, c'est le chemin vers la mer, les programmes scolaires et la façon dont les écoles s'organisent.</p>
-    </div>
-    <div class="terr">
-      <a class="t" href="suisse.html">
-        <img src="img/ill-leman.jpg" alt="Illustration : maquette du Léman au delta du Rhône, des débris dérivent jusqu'à la mer" loading="lazy">
-        <div class="b">
-          <p class="meta">Genève, Vaud, Grand Genève</p>
-          <h3>Suisse romande · Du Léman à la mer</h3>
-          <p>Pour des élèves qui vivent à plus de 500 km de la côte : le van-labo vient dans la cour, le parcours suit le Rhône jusqu'à la Méditerranée, et la classe de mer se fait en trois jours à Marseille, en train.</p>
-          <span class="go">Le projet en Suisse →</span>
-        </div>
-      </a>
-      <a class="t" href="france.html">
-        <img src="img/antarctic.jpg" alt="Le voilier rouge Antarctic au mouillage devant une île de Méditerranée" loading="lazy">
-        <div class="b">
-          <p class="meta">Marseille, Bouches-du-Rhône, Région Sud</p>
-          <h3>Marseille et Provence · La mer au bout de la rue</h3>
-          <p>Pour des élèves qui vivent à côté de la mer sans toujours y avoir accès : ateliers en classe, aires marines éducatives avec le Parc national des Calanques en voisin, et sorties à la journée sur le voilier Antarctic.</p>
-          <span class="go">Le projet en France →</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
 
 <section id="pourquoi">
   <div class="wrap">
