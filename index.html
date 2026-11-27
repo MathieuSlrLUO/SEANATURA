@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SEANATURA</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22%230a2a36%22/%3E%3Cg%20transform%3D%22translate%28100%20104%29%20scale%280.82%29%20translate%28-100%20-104%29%22%3E%3Cpath%20d%3D%22M44%20132%20C80%20122%20104%2088%20108%2026%20C116%2066%20136%20104%20172%20132%20Z%22%20fill%3D%22%2362d6c5%22/%3E%3Cpath%20d%3D%22M18%20148%20C38%20138%2056%20138%2074%20148%20C92%20158%20110%20158%20128%20148%20C146%20138%20164%20138%20182%20148%22%20fill%3D%22none%22%20stroke%3D%22%23ecdcc0%22%20stroke-width%3D%2216%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
-<meta name="description" content="SEANATURA : un laboratoire marin itinérant et des classes de mer en Méditerranée pour les élèves de Suisse romande. Dossier de préfiguration, rentrée 2027.">
+<meta name="description" content="SEANATURA : ateliers ludiques, laboratoire marin itinérant et classes de mer en Méditerranée, animés par une biologiste marine et un océanographe. En Suisse romande et à Marseille, rentrée 2027.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Idée de mise en page : une descente. On part du Léman (+372 m), on suit le Rhône jusqu'à la mer (0 m),
@@ -242,33 +242,51 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   .nav nav a:nth-child(n+5){display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chip.no{animation:none}}
+
+/* territoires (ajout) */
+.terr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.terr a.t{display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:inherit;background:var(--plate);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:border-color .2s}
+.terr a.t:hover{border-color:var(--lagoon)}
+.terr img{width:100%;aspect-ratio:16/8;object-fit:cover}
+.terr .b{padding:20px 22px 24px;display:grid;gap:10px;align-content:start}
+.terr h3{font-size:1.5rem;color:var(--sand)}
+.terr p{color:var(--mute);font-size:.97rem}
+.terr .go{font-family:var(--f-display);font-weight:600;color:var(--lagoon)}
+.back{font-size:.9rem;color:var(--mute);text-decoration:none}
+.back:hover{color:var(--foam)}
+.pay{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pay>div{border-top:2px solid var(--lagoon);padding-top:14px;display:grid;gap:8px;align-content:start}
+.pay h3{font-size:1.1rem;color:var(--sand)}
+.pay p{color:var(--mute);font-size:.94rem}
+@media (max-width:900px){.terr{grid-template-columns:minmax(0,1fr)}.pay{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.pay{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top"><svg aria-hidden="true" width="34" height="34" viewBox="0 16 200 176"><path d="M44 132 C80 122 104 88 108 26 C116 66 136 104 172 132 Z" fill="#62d6c5"/><path d="M18 148 C38 138 56 138 74 148 C92 158 110 158 128 148 C146 138 164 138 182 148" fill="none" stroke="#ecdcc0" stroke-width="12" stroke-linecap="round"/><path d="M18 172 C38 162 56 162 74 172 C92 182 110 182 128 172 C146 162 164 162 182 172" fill="none" stroke="#62d6c5" stroke-width="12" stroke-linecap="round" opacity=".55"/></svg><span><span style="color:var(--sand)">SEA</span><span style="color:var(--lagoon)">NATURA</span></span></a>
+    <a class="brand" href="index.html"><svg aria-hidden="true" width="34" height="34" viewBox="0 16 200 176"><path d="M44 132 C80 122 104 88 108 26 C116 66 136 104 172 132 Z" fill="#62d6c5"/><path d="M18 148 C38 138 56 138 74 148 C92 158 110 158 128 148 C146 138 164 138 182 148" fill="none" stroke="#ecdcc0" stroke-width="12" stroke-linecap="round"/><path d="M18 172 C38 162 56 162 74 172 C92 182 110 182 128 172 C146 162 164 162 182 172" fill="none" stroke="#62d6c5" stroke-width="12" stroke-linecap="round" opacity=".55"/></svg><span><span style="color:var(--sand)">SEA</span><span style="color:var(--lagoon)">NATURA</span></span></a>
     <nav aria-label="Sections">
-      <a href="#pourquoi">Pourquoi l'océan</a>
-      <a href="#methode">Méthode</a>
+      <a href="suisse.html">Suisse</a>
+      <a href="france.html">France</a>
       <a href="#ateliers">Ateliers</a>
       <a href="#camion">Van-labo</a>
       <a href="#mer">Classes de mer</a>
-      <a href="#enligne">En ligne</a>
       <a href="#equipe">Équipe</a>
-      <a href="#calendrier">Rentrée 2027</a>
+      <a href="#pourquoi">Pourquoi l'océan</a>
+      <a href="#methode">Méthode</a>
+      <a href="#enligne">En ligne</a>
     </nav>
   </div>
 </header>
 
 <div class="gauge" aria-hidden="true">
   <div class="rail"></div>
-  <div class="tick" style="top:0"><span>Léman +372 m</span></div>
-  <div class="tick" style="top:22%"><span>mer 0 m</span></div>
+  <div class="tick" style="top:0"><span>surface 0 m</span></div>
   <div class="tick" style="top:100%"><span>−40 m</span></div>
   <div class="mark" id="gmark" style="top:0"></div>
-  <div class="read" id="gread" style="top:0">+372 m</div>
+  <div class="read" id="gread" style="top:0">0 m</div>
 </div>
 
 <main id="top">
@@ -276,15 +294,15 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
 <div class="hero">
   <div class="wrap">
     <div>
-      <p class="mono">Dossier de préfiguration · Genève, Vaud, Grand Genève · rentrée 2027</p>
+      <p class="mono">Association en création · Suisse romande et Marseille · rentrée 2027</p>
       <h1>Quand l'océan rencontre <em>l'école</em></h1>
-      <p class="sub">Un laboratoire marin itinérant, animé par une biologiste marine et un océanographe, pour faire toucher la mer aux élèves de Suisse romande. Puis les y emmener ?</p>
+      <p class="sub">Un laboratoire marin itinérant, animé par une biologiste marine et un océanographe, pour faire toucher la mer aux élèves, qu'ils vivent au bord du Léman ou à deux pas des calanques. Puis les y emmener.</p>
       <ul class="tags">
         <li>Ateliers ludiques</li><li>Van-labo</li><li>Classes de mer en Méditerranée</li><li>7 à 16 ans</li>
       </ul>
       <div class="cta">
         <a class="btn solid" href="#ateliers">Voir les ateliers</a>
-        <a class="btn" href="#calendrier">Ce qu'il faut pour septembre 2027</a>
+        <a class="btn" href="#territoires">Suisse ou France ?</a>
       </div>
     </div>
     <figure>
@@ -294,23 +312,53 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   </div>
 </div>
 
+<section id="territoires">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">Où nous intervenons</p>
+      <h2>Un même projet, deux territoires</h2>
+      <p class="lede">Les ateliers, le van-labo, l'équipe et le voilier sont les mêmes partout. Ce qui change, c'est le chemin vers la mer, les programmes scolaires et la façon dont les écoles s'organisent.</p>
+    </div>
+    <div class="terr">
+      <a class="t" href="suisse.html">
+        <img src="img/ill-leman.jpg" alt="Illustration : maquette du Léman au delta du Rhône, des débris dérivent jusqu'à la mer" loading="lazy">
+        <div class="b">
+          <p class="meta">Genève, Vaud, Grand Genève</p>
+          <h3>Suisse romande · Du Léman à la mer</h3>
+          <p>Pour des élèves qui vivent à plus de 500 km de la côte : le van-labo vient dans la cour, le parcours suit le Rhône jusqu'à la Méditerranée, et la classe de mer se fait en trois jours à Marseille, en train.</p>
+          <span class="go">Le projet en Suisse →</span>
+        </div>
+      </a>
+      <a class="t" href="france.html">
+        <img src="img/antarctic.jpg" alt="Le voilier rouge Antarctic au mouillage devant une île de Méditerranée" loading="lazy">
+        <div class="b">
+          <p class="meta">Marseille, Bouches-du-Rhône, Région Sud</p>
+          <h3>Marseille et Provence · La mer au bout de la rue</h3>
+          <p>Pour des élèves qui vivent à côté de la mer sans toujours y avoir accès : ateliers en classe, aires marines éducatives avec le Parc national des Calanques en voisin, et sorties à la journée sur le voilier Antarctic.</p>
+          <span class="go">Le projet en France →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section id="pourquoi">
   <div class="wrap">
     <div class="head">
       <p class="mono">01 · Le point de départ</p>
-      <h2>Pourquoi parler d'océan à des enfants qui vivent à 500 km de la mer</h2>
-      <p class="lede">La nature suisse a déjà ses médiateurs, et ils la connaissent mieux que nous. Ce que nous apportons, c'est ce qui manque : la mer, racontée et montrée par deux personnes dont c'est le métier.</p>
+      <h2>Pourquoi parler d'océan aux enfants, qu'ils vivent à 500 km de la mer ou à 500 m</h2>
+      <p class="lede">Loin de la côte, la mer est une image. Tout près, elle est souvent un décor qu'on regarde sans le comprendre. Dans les deux cas, ce que nous apportons, c'est la mer racontée et montrée par deux personnes dont c'est le métier.</p>
     </div>
     <div class="why">
       <div>
-        <b>La Suisse a un lien avec la mer</b>
-        <h3>Le Léman se jette dans la Méditerranée</h3>
-        <p>L'eau qui quitte Genève par le Rhône rejoint la mer plus de 500 km en aval. Ce qu'on y laisse tomber aussi. Pour un élève genevois, l'océan commence au pont du Mont-Blanc.</p>
+        <b>Toutes les rivières mènent à la mer</b>
+        <h3>L'océan commence dans la rue</h3>
+        <p>Le Rhône emporte vers la Méditerranée ce qui tombe dans le Léman. À Marseille, l'Huveaune et les eaux de pluie s'y jettent directement. Chaque école a son chemin vers la mer, et c'est notre fil rouge.</p>
       </div>
       <div>
         <b>1 sur 2</b>
         <h3>Une respiration sur deux vient de la mer</h3>
-        <p>Le plancton marin produit environ la moitié de l'oxygène de la planète, et l'océan absorbe près d'un quart du CO₂ que nous émettons. Le climat des Alpes se joue aussi au large.</p>
+        <p>Le plancton marin produit environ la moitié de l'oxygène de la planète, et l'océan absorbe près d'un quart du CO₂ que nous émettons. Le climat, dans les Alpes comme en Provence, se joue aussi au large.</p>
       </div>
       <div>
         <b>Des créatures qui captent l'attention</b>
@@ -349,7 +397,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
       <li><b>Un passeport d'explorateur</b> tamponné à chaque atelier</li>
       <li><b>Dessins avant / après</b> pour mesurer ce qui a bougé</li>
     </ul>
-    <p class="note">Ce projet s'inscrit dans une tradition romande que vous connaissez bien : faire entrer une expédition dans la classe, comme l'ont fait Educapoles pour les régions polaires ou les dossiers pédagogiques de PlanetSolar DeepWater. Nous proposons d'en construire le volet océan, et nous aimerions soumettre nos séquences à un regard didactique avant de les déployer.</p>
+    <p class="note">Nous aimerions soumettre nos séquences au regard d'un didacticien des sciences avant de les déployer, et les ajuster après les séances pilotes avec les enseignants.</p>
   </div>
 </section>
 
@@ -358,7 +406,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
     <div class="head">
       <p class="mono">03 · Les ateliers</p>
       <h2>Douze ateliers ludiques, dont trois à essayer ici</h2>
-      <p class="lede">Chaque atelier dure 45 à 90 minutes et s'adapte de la 5P au secondaire I. Les trois premiers sont nos pièces maîtresses, et une version simplifiée de chacun est jouable sur cette page.</p>
+      <p class="lede">Chaque atelier dure 45 à 90 minutes et s'adapte de 6 à 16 ans (de la 3P à la 11H en Suisse, du CE1 à la 3e en France). Les trois premiers sont nos pièces maîtresses, et une version simplifiée de chacun est jouable sur cette page.</p>
     </div>
 
     <div class="lab">
@@ -507,12 +555,12 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
         </div>
       </article>
       <article class="card">
-        <img src="img/ill-leman.jpg" alt="Illustration : maquette du Léman au delta du Rhône, des débris colorés dérivent jusqu'à la mer, un tamis les récupère" loading="lazy">
+        <img src="img/ill-leman.jpg" alt="Illustration : maquette d'un bassin versant, des débris colorés dérivent jusqu'à la mer, un tamis les récupère" loading="lazy">
         <div class="b">
           <p class="meta">Atelier 8 · 6 à 13 ans · 60 min</p>
-          <h3>Du Léman à la mer</h3>
-          <p class="q">Où va ce qui tombe dans le Rhône ?</p>
-          <p>Une maquette de bassin versant, de Genève à la Camargue, sur laquelle on fait pleuvoir. Puis tri d'une laisse de mer reconstituée et tamisage de sable à la recherche de microplastiques.</p>
+          <h3>De la rivière à la mer</h3>
+          <p class="q">Où va ce qui tombe dans la rivière ?</p>
+          <p>Une maquette de bassin versant sur laquelle on fait pleuvoir : du Léman à la Camargue en Suisse, de l'Huveaune aux plages du Prado à Marseille. Puis tri d'une laisse de mer reconstituée et tamisage de sable à la recherche de microplastiques.</p>
         </div>
       </article>
       <article class="card">
@@ -600,6 +648,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
       </ol>
     </div>
     <p class="note">Utiliser le van de Mathieu évite d'acheter un véhicule : seul son aménagement est à financer (auvent, rangements, énergie, marquage). Les ateliers tiennent aussi dans de simples caisses, ce qui permet de mener les séances pilotes avant la fin de l'aménagement.</p>
+    <p class="note"><b style="color:var(--sand)">L'atelier sort de l'atelier.</b> L'imprimante 3D multicolore qui fabrique nos maquettes peut venir à l'école. Branchée dans la classe, elle imprime une dent de requin ou un bec pendant la séance : les élèves voient comment on passe d'un modèle à l'ordinateur à un objet qu'on tient en main. Au collège, on montre la chaîne complète, de la photo d'un objet à son modèle 3D puis à l'impression, la technique qui sert aussi à cartographier les récifs. C'est le domaine de Mathieu.</p>
   </div>
 </section>
 
@@ -608,7 +657,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
     <div class="head">
       <p class="mono">05 · Classes de mer</p>
       <h2>Après la classe, le large : trois jours en Méditerranée</h2>
-      <p class="lede">Aboutissement du parcours pour les classes volontaires : un séjour à Marseille, accessible en train depuis Genève, où les élèves refont sur le terrain ce qu'ils ont appris en atelier.</p>
+      <p class="lede">Aboutissement du parcours pour les classes volontaires : la mer depuis Marseille, en séjour de trois jours pour les classes suisses, à la journée pour les classes de la région. Les élèves y refont sur le terrain ce qu'ils ont appris en atelier.</p>
     </div>
     <div class="days">
       <div class="day">
@@ -628,7 +677,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
       <div class="stack">
         <h3 style="font-size:1.5rem;color:var(--sand)">Un format déjà pratiqué</h3>
         <p class="txt">Au Seaquarium Institut Marin du Grau-du-Roi, Alice a <strong>organisé des sorties pédagogiques en mer à bord d'un voilier</strong> et accompagné pendant deux ans une classe de CM1 dans la gestion de son Aire Marine Éducative. Elle y a aussi coordonné des suivis d'oiseaux marins et de cétacés.</p>
-        <p class="txt"><strong>Le voilier Antarctic, en partenariat avec Ocean Kids &amp; Co.</strong> L'association <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a> est prête à accueillir les classes suisses à bord de son voilier <a href="https://www.voilierantarctic.com/">Antarctic</a>, basé à Marseille, qui peut embarquer une classe entière : 33 personnes à la journée, en plus de ses deux marins. À bord, selon le programme : snorkeling, jumelles, drones, tablettes et matériel d'observation.</p>
+        <p class="txt"><strong>Le voilier Antarctic, en partenariat avec Ocean Kids &amp; Co.</strong> L'association <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a> est prête à accueillir nos classes à bord de son voilier <a href="https://www.voilierantarctic.com/">Antarctic</a>, basé à Marseille, qui peut embarquer une classe entière : 33 personnes à la journée, en plus de ses deux marins. À bord, selon le programme : snorkeling, jumelles, drones, tablettes et matériel d'observation.</p>
         <p class="txt">Les sorties se font avec l'équipage du bateau. Le cadre (autorisations des directions, encadrement, assurances, transport) sera établi avec chaque établissement.</p>
       </div>
       <img src="img/voilier-dosados.jpg" alt="Mathieu Soulayrol et Alice Beaujoin, jumelles en main, assis dos à dos sur le pont d'un voilier en mer" style="aspect-ratio:16/15;object-position:50% 60%">
@@ -746,43 +795,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   </div>
 </section>
 
-<section id="calendrier">
-  <div class="wrap">
-    <div class="head">
-      <p class="mono">09 · Formats et calendrier</p>
-      <h2>Ce qu'il faut réunir pour ouvrir en septembre 2027</h2>
-    </div>
 
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Format</th><th>Durée</th><th>Pour qui</th><th>Contenu</th></tr></thead>
-        <tbody>
-          <tr><td>Atelier découverte</td><td>90 min</td><td>1 classe</td><td>Deux ateliers en demi-groupes, dessins avant / après.</td></tr>
-          <tr><td>Journée van-labo</td><td>1 jour</td><td>2 à 4 classes en rotation</td><td>Le van dans la cour, quatre ateliers tournants par classe.</td></tr>
-          <tr><td>Parcours « Du Léman à la mer »</td><td>4 à 6 séances sur l'année</td><td>1 classe et son enseignant</td><td>Projet coconstruit avec l'école, carnet de bord, restitution publique. Format adapté aux dispositifs de soutien du DIP.</td></tr>
-          <tr><td>Classe de mer</td><td>3 jours</td><td>Classes ayant suivi le parcours</td><td>Séjour en Méditerranée avec sortie bateau.</td></tr>
-          <tr><td>Événements</td><td>à la carte</td><td>Communes, festivals, parascolaire</td><td>Stand van-labo, ateliers courts, exposition photo.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="fine">Premiers raccords proposés avec le Plan d'études romand, cycle 2 : MSN 26 (phénomènes naturels et techniques), MSN 28 (diversité du vivant), FG 26-27 (interdépendances). À préciser atelier par atelier, et à faire valider.</p>
-
-    <h3 style="font-size:1.3rem;color:var(--sand);margin:48px 0 26px">Rétroplanning</h3>
-    <ol class="tl">
-      <li class="key"><span class="when">Déc. 2026 – févr. 2027</span><h3>Décision</h3><p>Structure porteuse en Suisse, dépôt des demandes de financement pour la préparation.</p></li>
-      <li><span class="when">Mars – avril 2027</span><h3>Fabrication</h3><p>Début de la phase 1. Tête de requin imprimée en 3D, canal à houle, fiches par atelier.</p></li>
-      <li><span class="when">Mai – juin 2027</span><h3>Pilotes</h3><p>Trois interventions dans des classes genevoises, évaluation avec les enseignants.</p></li>
-      <li><span class="when">Été 2027</span><h3>Van</h3><p>Aménagement du van, programmation de l'année avec les écoles et le voilier Antarctic.</p></li>
-      <li class="key"><span class="when">Septembre 2027</span><h3>Lancement</h3><p>Première année scolaire complète. Première classe de mer au printemps 2028.</p></li>
-    </ol>
-
-    <div class="ask">
-      <h3>Ce qui se décide cet hiver</h3>
-      <p>Pour ouvrir en septembre 2027, la préparation doit démarrer en mars. Certaines fondations demandent un dépôt quatre mois avant le début du projet : il nous faut donc dans les prochaines semaines une structure porteuse et les premières demandes déposées.</p>
-      <p>Nous sommes tous les deux disponibles pour nous y consacrer : à mi-temps pendant la préparation, de mars à août 2027, puis à plein temps. Trois questions sont ouvertes : qui porte le projet en Suisse, quels premiers financeurs solliciter, et quelle part de prestations les écoles et communes genevoises peuvent absorber dès la première année.</p>
-    </div>
-  </div>
-</section>
 
 <section id="contact">
   <div class="wrap contact">
@@ -801,11 +814,11 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
 
 <script>
 (function(){
-  /* Jauge d'altitude : +372 m en haut de page, 0 m à 22 % du défilement, -40 m en bas */
+  /* Jauge de profondeur : 0 m en haut de page, -40 m en bas */
   var mark=document.getElementById('gmark'), read=document.getElementById('gread');
   function gauge(){
     var max=document.documentElement.scrollHeight-innerHeight, p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
-    var alt=p<.22 ? 372*(1-p/.22) : -40*(p-.22)/.78;
+    var alt=-40*p;
     mark.style.top=read.style.top=(p*100)+'%';
     var r=Math.round(alt); read.textContent=(r>0?'+':r<0?'−':'')+Math.abs(r)+' m';
   }
