@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SEANATURA</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%22100%22%20fill%3D%22%230a2a36%22/%3E%3Cg%20transform%3D%22translate%28100%20104%29%20scale%280.82%29%20translate%28-100%20-104%29%22%3E%3Cpath%20d%3D%22M44%20132%20C80%20122%20104%2088%20108%2026%20C116%2066%20136%20104%20172%20132%20Z%22%20fill%3D%22%2362d6c5%22/%3E%3Cpath%20d%3D%22M18%20148%20C38%20138%2056%20138%2074%20148%20C92%20158%20110%20158%20128%20148%20C146%20138%20164%20138%20182%20148%22%20fill%3D%22none%22%20stroke%3D%22%23ecdcc0%22%20stroke-width%3D%2216%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
-<meta name="description" content="SEANATURA : ateliers ludiques, laboratoire marin itinérant et classes de mer en Méditerranée, animés par une biologiste marine et un océanographe. En Suisse romande et à Marseille, rentrée 2027.">
+<meta name="description" content="SEANATURA : un laboratoire marin itinérant, animé par une biologiste marine et un océanographe, pour faire toucher la mer aux élèves, puis les y emmener.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Idée de mise en page : une descente. On part du Léman (+372 m), on suit le Rhône jusqu'à la mer (0 m),
-   puis on plonge. La jauge de droite donne l'altitude ; les photos de terrain portent le récit. */
+/* Idée de mise en page : une plongée. On entre par une énigme, on essaie, on comprend comment,
+   puis on rencontre ceux qui l'ont pensée. La jauge de droite donne la profondeur. */
 :root{
   color-scheme:dark;
   --abyss:#03131b;
@@ -242,22 +242,58 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   .nav nav a:nth-child(n+5){display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chip.no{animation:none}}
+
+/* refonte page unique */
+.nav .cta-mini{margin-left:6px;font-family:var(--f-display);font-weight:600;font-size:.86rem;color:var(--abyss);background:var(--lagoon);padding:.42em .9em;border-radius:6px;text-decoration:none;white-space:nowrap}
+.nav .cta-mini:hover{background:var(--sand)}
+.hook{margin-top:26px;display:inline-flex;gap:10px;align-items:baseline;color:var(--foam);text-decoration:none;border-bottom:1px dashed var(--line);padding-bottom:4px;font-size:1rem}
+.hook b{color:var(--coral);font-family:var(--f-display);font-weight:600}
+.hook:hover{border-color:var(--lagoon)}
+.intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(24px,5vw,64px);align-items:center}
+.intro p{font-size:clamp(1.12rem,1.7vw,1.35rem);line-height:1.5;color:var(--foam);max-width:40ch}
+.stats{display:grid;gap:18px}
+.stats div{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
+.stats b{font-family:var(--f-display);font-size:clamp(2.2rem,4vw,3rem);color:var(--lagoon);line-height:1;font-variant-numeric:tabular-nums}
+.stats span{color:var(--mute)}
+.lab .num{font-family:var(--f-display);font-weight:700;color:var(--coral);font-size:1rem}
+.lived{display:grid;gap:10px;margin:4px 0 0}
+.lived div{display:grid;gap:2px}
+.lived dt{font-family:var(--f-display);font-weight:600;color:var(--sand);font-size:.95rem}
+.lived dd{margin:0;color:var(--mute);font-size:.97rem}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.card .q{font-size:1.18rem;color:var(--sand);font-family:var(--f-display);font-weight:600;line-height:1.2}
+.card dl{margin:0;display:grid;gap:8px}
+.card dt{font-family:var(--f-display);font-weight:600;font-size:.8rem;color:var(--lagoon)}
+.card dd{margin:0;color:var(--mute);font-size:.93rem}
+.card[hidden]{display:none}
+.doors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.doors>div{background:var(--plate);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:10px;align-content:start}
+.doors h3{font-size:1.2rem;color:var(--sand)}
+.doors p{color:var(--mute);font-size:.95rem}
+.story{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,4vw,56px);align-items:center;margin-bottom:clamp(36px,6vh,64px)}
+.story blockquote{margin:0;display:grid;gap:16px}
+.story blockquote p{font-size:1.12rem;color:var(--foam);max-width:58ch}
+.story img{border-radius:4px;width:100%;aspect-ratio:16/15;object-fit:cover;object-position:50% 60%}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-bottom:clamp(36px,6vh,64px)}
+.who .b p{color:var(--mute);font-size:.98rem}
+.marks{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.marks li{font-size:.8rem;border:1px solid var(--line);border-radius:99px;padding:.3em .75em;color:var(--foam)}
+@media (max-width:900px){.intro,.story,.duo{grid-template-columns:minmax(0,1fr)}.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.doors{grid-template-columns:minmax(0,1fr)}.nav .cta-mini{display:none}}
 </style>
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="index.html"><svg aria-hidden="true" width="34" height="34" viewBox="0 16 200 176"><path d="M44 132 C80 122 104 88 108 26 C116 66 136 104 172 132 Z" fill="#62d6c5"/><path d="M18 148 C38 138 56 138 74 148 C92 158 110 158 128 148 C146 138 164 138 182 148" fill="none" stroke="#ecdcc0" stroke-width="12" stroke-linecap="round"/><path d="M18 172 C38 162 56 162 74 172 C92 182 110 182 128 172 C146 162 164 162 182 172" fill="none" stroke="#62d6c5" stroke-width="12" stroke-linecap="round" opacity=".55"/></svg><span><span style="color:var(--sand)">SEA</span><span style="color:var(--lagoon)">NATURA</span></span></a>
+    <a class="brand" href="#top"><svg aria-hidden="true" width="34" height="34" viewBox="0 16 200 176"><path d="M44 132 C80 122 104 88 108 26 C116 66 136 104 172 132 Z" fill="#62d6c5"/><path d="M18 148 C38 138 56 138 74 148 C92 158 110 158 128 148 C146 138 164 138 182 148" fill="none" stroke="#ecdcc0" stroke-width="12" stroke-linecap="round"/><path d="M18 172 C38 162 56 162 74 172 C92 182 110 182 128 172 C146 162 164 162 182 172" fill="none" stroke="#62d6c5" stroke-width="12" stroke-linecap="round" opacity=".55"/></svg><span><span style="color:var(--sand)">SEA</span><span style="color:var(--lagoon)">NATURA</span></span></a>
     <nav aria-label="Sections">
       <a href="#ateliers">Ateliers</a>
-      <a href="#camion">Van-labo</a>
-      <a href="#mer">Classes de mer</a>
-      <a href="#equipe">Équipe</a>
-      <a href="#pourquoi">Pourquoi l'océan</a>
-      <a href="#methode">Méthode</a>
-      <a href="#enligne">En ligne</a>
+      <a href="#methode">La méthode</a>
+      <a href="#pour-qui">Pour qui</a>
+      <a href="#nous">Nous</a>
     </nav>
+    <a class="cta-mini" href="#contact">Nous écrire</a>
   </div>
 </header>
 
@@ -274,16 +310,17 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
 <div class="hero">
   <div class="wrap">
     <div>
-      <p class="mono">Association en création · Suisse romande et Marseille · rentrée 2027</p>
+      <p class="mono">Biologie marine · océanographie · 6 à 16 ans</p>
       <h1>Quand l'océan rencontre <em>l'école</em></h1>
-      <p class="sub">Un laboratoire marin itinérant, animé par une biologiste marine et un océanographe, pour faire toucher la mer aux élèves, qu'ils vivent au bord du Léman ou à deux pas des calanques. Puis les y emmener.</p>
+      <p class="sub">Un laboratoire marin itinérant, animé par une biologiste marine et un océanographe, pour faire toucher la mer aux élèves, puis les y emmener !</p>
       <ul class="tags">
-        <li>Ateliers ludiques</li><li>Van-labo</li><li>Classes de mer en Méditerranée</li><li>7 à 16 ans</li>
+        <li>Douze ateliers</li><li>Van-labo</li><li>Sorties en mer</li><li>Zéro diaporama</li>
       </ul>
       <div class="cta">
-        <a class="btn solid" href="#ateliers">Voir les ateliers</a>
+        <a class="btn solid" href="#ateliers">Essayer un atelier</a>
         <a class="btn" href="#contact">Nous écrire</a>
       </div>
+      <a class="hook" href="#ateliers"><b>Première énigme</b> Comment un requin trouve-t-il un poisson qu'il ne voit pas ?</a>
     </div>
     <figure>
       <img src="img/hero.jpg" alt="Un plongeur remonte dans un rayon de lumière au-dessus d'un banc de requins-marteaux">
@@ -292,85 +329,34 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   </div>
 </div>
 
-<section id="pourquoi">
-  <div class="wrap">
-    <div class="head">
-      <p class="mono">01 · Le point de départ</p>
-      <h2>Pourquoi parler d'océan aux enfants, qu'ils vivent à 500 km de la mer ou à 500 m</h2>
-      <p class="lede">Loin de la côte, la mer est une image. Tout près, elle est souvent un décor qu'on regarde sans le comprendre. Dans les deux cas, ce que nous apportons, c'est la mer racontée et montrée par deux personnes dont c'est le métier.</p>
+<section id="projet">
+  <div class="wrap intro">
+    <p>Nous sommes Alice, biologiste marine, et Mathieu, océanographe. Nous venons dans les écoles avec un laboratoire mobile et douze ateliers où les enfants manipulent, mesurent et se trompent avant de comprendre. Pas d'exposé sur la protection des océans : des énigmes, de vraies données, et l'envie de savoir comment tout ça fonctionne.</p>
+    <div class="stats">
+      <div><b>12</b><span>ateliers, chacun construit autour d'une question</span></div>
+      <div><b>6-16</b><span>ans, de la primaire au collège</span></div>
+      <div><b>0</b><span>diaporama. On manipule au bout de dix minutes, toujours.</span></div>
     </div>
-    <div class="why">
-      <div>
-        <b>Toutes les rivières mènent à la mer</b>
-        <h3>L'océan commence dans la rue</h3>
-        <p>Le Rhône emporte vers la Méditerranée ce qui tombe dans le Léman. À Marseille, l'Huveaune et les eaux de pluie s'y jettent directement. Chaque école a son chemin vers la mer, et c'est notre fil rouge.</p>
-      </div>
-      <div>
-        <b>1 sur 2</b>
-        <h3>Une respiration sur deux vient de la mer</h3>
-        <p>Le plancton marin produit environ la moitié de l'oxygène de la planète, et l'océan absorbe près d'un quart du CO₂ que nous émettons. Le climat, dans les Alpes comme en Provence, se joue aussi au large.</p>
-      </div>
-      <div>
-        <b>Des créatures qui captent l'attention</b>
-        <h3>Un requin, et toute la classe écoute</h3>
-        <p>Requins, baleines, abysses : aucun sujet ne mobilise autant la curiosité des enfants. C'est une porte d'entrée idéale vers la démarche scientifique, la physique de l'eau et le vivant.</p>
-      </div>
-    </div>
-    <div class="split">
-      <img src="img/rb3.jpg" alt="Un requin-baleine bouche ouverte, vu de face sous la surface" style="aspect-ratio:1/1">
-      <div class="stack">
-        <h3 style="font-size:1.6rem;color:var(--sand)">Ce que les élèves n'ont jamais eu en classe</h3>
-        <p class="txt">De la Méditerranée aux Caraïbes à la voile, puis à travers l’Amérique centrale et du Sud jusqu’au Pacifique, nous revenons avec des images, des observations et mille histoires d’océan. <strong>Biologiste marine</strong> et <strong>ingénieur océanographe</strong>, tous deux plongeurs professionnels, nous partageons une même envie : explorer, comprendre et protéger le monde marin.</p>
-        <p class="txt">Quand un enfant demande « vous l'avez vu en vrai ? », la réponse est oui. Cette photo de requin-baleine a été prise à deux mètres de sa bouche, en Basse-Californie.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="methode">
-  <div class="wrap">
-    <div class="head">
-      <p class="mono">02 · La méthode</p>
-      <h2>Une enquête à chaque séance, jamais un exposé</h2>
-      <p class="lede">Chaque atelier suit une démarche d'investigation : les élèves partent de ce qu'ils croient savoir, formulent des hypothèses, les testent avec leurs mains, puis confrontent leurs résultats.</p>
-    </div>
-    <ol class="steps">
-      <li><h3>Ce qu'ils pensent</h3><p>« Dessine-moi un requin. » « D'où viennent les vagues ? » On recueille les conceptions de départ. Elles servent de matière première, et de point de comparaison en fin de séance.</p></li>
-      <li><h3>Une question qui résiste</h3><p>Chaque atelier pose une énigme concrète : comment un requin trouve-t-il un poisson caché sous le sable ? Les élèves proposent leurs explications avant de toucher au matériel.</p></li>
-      <li><h3>Des mains dans l'eau</h3><p>Petits groupes en rotation. On manipule, on mesure, on note, on se trompe, on recommence. Les animateurs relancent, ils ne donnent pas la réponse.</p></li>
-      <li><h3>Conclure et agir</h3><p>Mise en commun, retour sur les dessins du début, et une décision de classe : un geste, une affiche, un message à transmettre à une autre classe.</p></li>
-    </ol>
-    <ul class="rules">
-      <li><b>Zéro</b> diaporama</li>
-      <li><b>Dix minutes</b> maximum sans manipuler</li>
-      <li><b>De vraies données</b> et de vraies images de terrain</li>
-      <li><b>Un passeport d'explorateur</b> tamponné à chaque atelier</li>
-      <li><b>Dessins avant / après</b> pour mesurer ce qui a bougé</li>
-    </ul>
-    <p class="note">Nous aimerions soumettre nos séquences au regard d'un didacticien des sciences avant de les déployer, et les ajuster après les séances pilotes avec les enseignants.</p>
   </div>
 </section>
 
 <section id="ateliers">
   <div class="wrap">
     <div class="head">
-      <p class="mono">03 · Les ateliers</p>
-      <h2>Douze ateliers ludiques, dont trois à essayer ici</h2>
-      <p class="lede">Chaque atelier dure 45 à 90 minutes et s'adapte de 6 à 16 ans (de la 3P à la 11H en Suisse, du CE1 à la 3e en France). Les trois premiers sont nos pièces maîtresses, et une version simplifiée de chacun est jouable sur cette page.</p>
+      <p class="mono">Les ateliers</p>
+      <h2>Douze questions qui résistent</h2>
+      <p class="lede">Chaque atelier part d'une énigme et dure de 45 à 90 minutes. Essayez les trois premiers ici même, comme le feront vos élèves.</p>
     </div>
 
-    <div class="lab">
+    <div class="lab" data-t="vivant">
       <div class="stack">
-        <p class="meta">Atelier 1 · 7 à 14 ans · 60 min · biologie</p>
-        <h3>Les super-sens du requin</h3>
-        <p class="q">Comment un requin trouve-t-il une proie qu'il ne voit pas ?</p>
-        <p class="txt">Une tête de requin et sa nageoire dorsale, imprimées en 3D en filament biosourcé et aimantées. Pas besoin du requin entier : tous les sens sont sur la tête, où commence aussi la ligne latérale. Six aimants à poser : narines, oreille interne, ligne latérale, œil, ampoules de Lorenzini, bouche.</p>
-        <ul class="do">
-          <li>Les élèves placent chaque organe au bon endroit sur le corps.</li>
-          <li>Ils classent ensuite les sens selon la distance à laquelle le requin détecte sa proie, et débattent avant de vérifier.</li>
-          <li>Épreuve finale : retrouver un « poisson » caché sous le sable d'un bac avec une boussole, qui joue le rôle du sens électrique.</li>
-          <li>À toucher : vraies dents fossiles, moulage de mâchoire, papier de verre pour la peau.</li>
-        </ul>
+        <p class="meta"><span class="num">Atelier 1</span> · 7-14 ans · 60 min</p>
+        <h3>Comment un requin trouve-t-il un poisson qu'il ne voit pas ?</h3>
+        <dl class="lived">
+          <div><dt>Ils font</dt><dd>Ils posent six sens aimantés sur une tête de requin imprimée en 3D, les classent du plus lointain au plus proche, puis cherchent un poisson caché sous le sable avec une boussole, les yeux bandés.</dd></div>
+          <div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Qu'un animal peut percevoir ce qui nous échappe, comme le courant électrique des muscles d'une proie.</dd></div>
+        </dl>
+        <p class="txt">À toucher en fin de séance : de vraies dents fossiles, un moulage de mâchoire, et du papier de verre pour sentir la peau du requin.</p>
       </div>
       <div class="demo" id="sharkdemo">
         <span class="mono">À vous de jouer</span>
@@ -390,7 +376,7 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
       </div>
     </div>
 
-    <div class="lab rev">
+    <div class="lab rev" data-t="physique">
       <div class="demo">
         <span class="mono">À vous de jouer</span>
         <p class="how">Choisissez une protection pour le village et observez jusqu'où monte la vague.</p>
@@ -404,32 +390,25 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
         <div class="out" id="fout" aria-live="polite"></div>
       </div>
       <div class="stack">
-        <p class="meta">Atelier 2 · 9 à 16 ans · 75 min · physique</p>
-        <h3>Le mini canal à houle</h3>
-        <p class="q">Comment protéger un village des vagues sans bétonner la plage ?</p>
-        <p class="txt">Un canal transparent de 2 m, un batteur à manivelle pour créer la houle, du sable, des maisons miniatures. C'est l'outil de travail des ingénieurs côtiers, à l'échelle d'une table.</p>
-        <ul class="do">
-          <li>Chaque groupe construit sa plage et son village, puis lance la tempête.</li>
-          <li>Ils testent tour à tour une digue, des enrochements et un récif imprimés en 3D, puis un herbier en lanières souples.</li>
-          <li>Ils mesurent à la règle jusqu'où l'eau monte et remplissent un tableau de résultats.</li>
-          <li>Débat final : quelle solution choisir, à quel prix, et pour qui ? Récit de terrain en Polynésie, où la question se pose pour de vrai.</li>
-        </ul>
+        <p class="meta"><span class="num">Atelier 2</span> · 9-16 ans · 75 min</p>
+        <h3>Comment protéger un village des vagues sans bétonner la plage ?</h3>
+        <dl class="lived">
+          <div><dt>Ils font</dt><dd>Ils lèvent la tempête dans un canal transparent de deux mètres et testent tour à tour digue, enrochements, récif et herbier, règle en main.</dd></div>
+          <div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Qu'une vague transporte de l'énergie et pas de l'eau, et qu'une expérience juste ne change qu'une chose à la fois.</dd></div>
+        </dl>
+        <p class="txt">C'est l'outil de travail des ingénieurs côtiers, à l'échelle d'une table. Mathieu raconte la Polynésie, où la question se pose pour de vrai.</p>
       </div>
     </div>
 
-
-    <div class="lab">
+    <div class="lab" data-t="vivant">
       <div class="stack">
-        <p class="meta">Atelier 3 · 6 à 14 ans · 45 min · biologie</p>
-        <h3>À qui sont ces motifs ?</h3>
-        <p class="q">Comment reconnaître un animal, et même un individu, à ses taches ?</p>
-        <p class="txt">Le format vient de nos publications Instagram, où il fonctionne très bien : un gros plan mystère, un indice, puis la photo entière. En classe, on le prolonge par le vrai travail des chercheurs.</p>
-        <ul class="do">
-          <li>Manche 1 : des gros plans de peau, d'écailles et de plumes projetés en grand. Les équipes votent avec des cartes.</li>
-          <li>Manche 2 : vingt photos de raies léopards et de requins-baleines. Retrouver les paires qui montrent le même individu, à partir de ses taches.</li>
-          <li>Chaque équipe baptise « son » animal et l'inscrit au registre de la classe, comme dans les programmes de photo-identification.</li>
-          <li>À la fin, chaque élève fabrique sa propre carte motif à faire deviner à sa famille.</li>
-        </ul>
+        <p class="meta"><span class="num">Atelier 3</span> · 6-14 ans · 45 min</p>
+        <h3>Peut-on reconnaître un animal à ses taches, comme une empreinte digitale ?</h3>
+        <dl class="lived">
+          <div><dt>Ils font</dt><dd>Ils devinent à qui appartient un gros plan, puis retrouvent le même requin-baleine parmi vingt photos et l'inscrivent au registre de la classe.</dd></div>
+          <div><dt>Ils découvrent sans s'en rendre compte</dt><dd>La photo-identification, qui permet aux chercheurs de suivre un animal sans jamais le capturer.</dd></div>
+        </dl>
+        <p class="txt">Tous les motifs viennent de nos photos. Chaque élève repart avec sa carte mystère à faire deviner à sa famille.</p>
       </div>
       <div class="demo" id="quiz">
         <span class="mono">À vous de jouer · <span id="qscore">motif 1 sur 4</span></span>
@@ -440,128 +419,113 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
         <button class="btn" type="button" id="qnext" hidden>Motif suivant</button>
       </div>
     </div>
-    <div class="grid">
-      <article class="card">
-        <img src="img/ill-requin.jpg" alt="Illustration : des mains d'enfants placent des pastilles aimantées sur les organes des sens d'une tête de requin" loading="lazy">
+
+    <div class="filters" role="group" aria-label="Filtrer les ateliers par thème">
+      <button class="chip" type="button" data-f="all" aria-pressed="true">Tous</button>
+      <button class="chip" type="button" data-f="vivant" aria-pressed="false">Le vivant</button>
+      <button class="chip" type="button" data-f="physique" aria-pressed="false">La physique de la mer</button>
+      <button class="chip" type="button" data-f="humain" aria-pressed="false">L'humain et la mer</button>
+    </div>
+    <div class="grid" id="cards">
+      <article class="card" data-t="vivant">
+        <img src="img/ill-dauphin.jpg" alt="Illustration : un dauphin émet des sons, l'écho revient d'un banc de poissons" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 1 · 7 à 14 ans · 60 min</p>
-          <h3>Les super-sens du requin</h3>
-          <p class="q">Comment un requin trouve-t-il une proie qu'il ne voit pas ?</p>
-          <p>Une tête de requin aimantée, imprimée en 3D : les élèves placent chaque organe des sens, les classent selon leur portée, puis retrouvent un « poisson » caché dans le sable grâce à une boussole.</p>
+          <p class="meta">Atelier 4 · 8-16 ans · 60 min</p>
+          <h3 class="q">Que voit un dauphin quand il n'y a plus de lumière ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Ils reconnaissent des sons enregistrés sous l'eau, lisent des spectrogrammes, jouent à l'écholocation yeux bandés. Puis on allume un moteur.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Que sous l'eau le son va loin et vite, et ce que le bruit des bateaux brouille.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
-        <img src="img/ill-vagues.jpg" alt="Illustration : canal à houle avec batteur à manivelle, digue, herbier et village miniature sur la plage" loading="lazy">
+      <article class="card" data-t="vivant">
+        <img src="img/ill-becs.jpg" alt="Illustration : outils-becs (pince, passoire, paille, épuisette) et bacs de nourriture" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 2 · 9 à 16 ans · 75 min</p>
-          <h3>Le mini canal à houle</h3>
-          <p class="q">Comment protéger un village des vagues sans bétonner la plage ?</p>
-          <p>Un canal transparent, un batteur à manivelle et une plage miniature. Digue, enrochements, récif ou herbier : les élèves testent chaque protection et mesurent jusqu'où monte l'eau.</p>
+          <p class="meta">Atelier 5 · 6-13 ans · 60 min</p>
+          <h3 class="q">Pourquoi les oiseaux marins n'ont-ils pas tous le même bec ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Pince, paille, passoire : chacun reçoit un bec et trente secondes pour se nourrir. Puis on trace au sol les plus de deux mètres d'envergure d'une frégate.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>L'adaptation, et pourquoi tant d'espèces partagent la même plage sans se gêner.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
-        <img src="img/ill-motifs.jpg" alt="Illustration : une loupe sur un motif à taches et des cartes réponse raie, requin-baleine, tortue, iguane" loading="lazy">
+      <article class="card" data-t="vivant">
+        <img src="img/ill-plancton.jpg" alt="Illustration : plancton vu à la loupe et modèle de plancton qui coule dans une colonne d'eau" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 3 · 6 à 14 ans · 45 min</p>
-          <h3>À qui sont ces motifs ?</h3>
-          <p class="q">Comment reconnaître un animal, et même un individu, à ses taches ?</p>
-          <p>Des gros plans mystère de peau, d'écailles et de plumes, puis un vrai défi de photo-identification : retrouver le même requin-baleine ou la même raie léopard grâce à ses taches.</p>
+          <p class="meta">Atelier 6 · 8-15 ans · 75 min</p>
+          <h3 class="q">Qui fabrique l'air que tu respires ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Ils observent du plancton sur grand écran, puis fabriquent celui qui coulera le plus lentement. La course la plus lente gagne.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Que le plancton produit environ la moitié de l'oxygène de la planète, et pourquoi il a des épines.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
-        <img src="img/ill-dauphin.jpg" alt="Illustration : un dauphin émet des sons, l'écho revient d'un banc de poissons, sonogramme en bas" loading="lazy">
+      <article class="card" data-t="humain">
+        <img src="img/ill-peche.jpg" alt="Illustration : une bâche-mer couverte de poissons et des engins de pêche miniatures" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 4 · 8 à 16 ans · 60 min</p>
-          <h3>L'océan, les yeux fermés</h3>
-          <p class="q">Que voit un dauphin quand il n'y a plus de lumière ?</p>
-          <p>Blind test de sons enregistrés sous l'eau, lecture de spectrogrammes, puis jeu d'écholocation en binôme, yeux bandés. On finit par ajouter le bruit des bateaux et on constate ce qui se perd.</p>
+          <p class="meta">Atelier 7 · 9-16 ans · 60-75 min</p>
+          <h3 class="q">Peut-on pêcher toujours plus dans la même mer ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Saison après saison, ils pêchent dans une mer de jetons avec six engins, de la canne au chalut. Puis ils inventent leurs propres règles.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Comment une ressource commune s'épuise, et comment une réserve marine la fait revenir.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
-        <img src="img/ill-becs.jpg" alt="Illustration : outils-becs (pince à linge, passoire, paille, pince, épuisette) et bacs de nourriture" loading="lazy">
+      <article class="card" data-t="humain">
+        <img src="img/ill-leman.jpg" alt="Illustration : maquette d'un bassin versant, des débris dérivent jusqu'à la mer, un tamis les récupère" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 5 · 6 à 13 ans · 60 min</p>
-          <h3>À chaque bec son métier</h3>
-          <p class="q">Pourquoi les oiseaux marins n'ont-ils pas tous le même bec ?</p>
-          <p>Pinces, passoires, pailles, épuisettes : chaque élève reçoit un « bec » et doit se nourrir dans des bacs différents. On mesure ensuite son envergure au sol contre celle d'une frégate.</p>
+          <p class="meta">Atelier 8 · 6-13 ans · 60 min</p>
+          <h3 class="q">Où va ce qui tombe dans le caniveau ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Ils font pleuvoir sur une maquette de bassin versant, celui de leur propre rivière, trient une laisse de mer et tamisent du sable à la recherche de microplastiques.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Que la mer commence dans leur rue, quelle que soit la distance qui les en sépare.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
-        <img src="img/ill-plancton.jpg" alt="Illustration : plancton vu à la loupe binoculaire et modèle de plancton qui coule dans une colonne d'eau" loading="lazy">
-        <div class="b">
-          <p class="meta">Atelier 6 · 8 à 15 ans · 75 min</p>
-          <h3>Le peuple invisible</h3>
-          <p class="q">Qui fabrique l'air que tu respires ?</p>
-          <p>Observation de plancton à la loupe binoculaire reliée à un écran. Puis défi d'ingénierie : fabriquer le plancton qui coule le plus lentement dans une colonne d'eau. La course la plus lente gagne.</p>
-        </div>
-      </article>
-      <article class="card">
-        <img src="img/ill-peche.jpg" alt="Illustration : une bâche-mer couverte de poissons adultes et jeunes, et des engins de pêche miniatures autour" loading="lazy">
-        <div class="b">
-          <p class="meta">Atelier 7 · 9 à 16 ans · 60 à 75 min</p>
-          <h3>La pêche est ouverte</h3>
-          <p class="q">Peut-on pêcher toujours plus dans la même mer ?</p>
-          <p>Une mer de jetons au sol, des adultes et des jeunes, et six engins miniatures : canne, chasse sous-marine, nasse, palangre, chalut, explosif. Chaque saison, les équipes pêchent ; seuls les adultes restants se reproduisent. La mer se vide, d'autant plus vite que l'engin est destructeur. Puis les élèves fixent leurs propres règles et découvrent l'effet d'une réserve marine.</p>
-        </div>
-      </article>
-      <article class="card">
-        <img src="img/ill-leman.jpg" alt="Illustration : maquette d'un bassin versant, des débris colorés dérivent jusqu'à la mer, un tamis les récupère" loading="lazy">
-        <div class="b">
-          <p class="meta">Atelier 8 · 6 à 13 ans · 60 min</p>
-          <h3>De la rivière à la mer</h3>
-          <p class="q">Où va ce qui tombe dans la rivière ?</p>
-          <p>Une maquette de bassin versant sur laquelle on fait pleuvoir : du Léman à la Camargue en Suisse, de l'Huveaune aux plages du Prado à Marseille. Puis tri d'une laisse de mer reconstituée et tamisage de sable à la recherche de microplastiques.</p>
-        </div>
-      </article>
-      <article class="card">
+      <article class="card" data-t="humain">
         <img src="img/ill-plongeur.jpg" alt="Illustration : un ballon rétrécit avec la profondeur, un plongeur fait le signe OK" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 9 · 8 à 16 ans · 60 min</p>
-          <h3>Dans la peau d'un plongeur</h3>
-          <p class="q">Pourquoi ne peut-on pas descendre aussi profond qu'on veut ?</p>
-          <p>Expériences de pression avec seringues et ballons, essayage du matériel, signes de plongée, puis mission muette en équipe : réaliser un comptage de poissons sur un récif dessiné au sol.</p>
+          <p class="meta">Atelier 9 · 8-16 ans · 60 min</p>
+          <h3 class="q">Pourquoi ne peut-on pas descendre aussi profond qu'on veut ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Ils écrasent un ballon dans une seringue, essaient masque et détendeur, puis comptent des poissons en équipe sans dire un mot.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>La pression, et le métier de plongeur scientifique.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
+      <article class="card" data-t="physique">
         <img src="img/ill-courants.jpg" alt="Illustration : aquarium dont on retire la cloison, l'eau chaude rouge passe au-dessus de l'eau froide bleue" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 10 · 9 à 16 ans · 45 min</p>
-          <h3>Courants en couleurs</h3>
-          <p class="q">Qu'est-ce qui fait bouger l'océan ?</p>
-          <p>Dans un aquarium, eau chaude rouge et eau froide salée bleue. Les élèves prédisent, versent, observent les masses d'eau glisser l'une sous l'autre, et comprennent le moteur des grands courants.</p>
+          <p class="meta">Atelier 10 · 9-16 ans · 45 min</p>
+          <h3 class="q">Qu'est-ce qui fait bouger l'océan ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Eau chaude rouge, eau froide et salée bleue : ils prédisent, versent, et regardent l'une glisser sous l'autre.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Le moteur des grands courants, qui règlent aussi notre climat.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
-        <img src="img/ill-carto.jpg" alt="Illustration : boîte percée sondée avec une baguette graduée et carte des fonds coloriée case par case" loading="lazy">
+      <article class="card" data-t="physique">
+        <img src="img/ill-carto.jpg" alt="Illustration : boîte percée sondée avec une baguette graduée et carte des fonds coloriée" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 11 · 9 à 16 ans · 60 min</p>
-          <h3>Cartographes des fonds</h3>
-          <p class="q">Comment dessiner un fond marin qu'on ne voit pas ?</p>
-          <p>Une boîte fermée cache un relief. Les élèves le sondent avec une tige graduée par une grille de trous, reportent les profondeurs et tracent leur carte, comme un sondeur de bathymétrie. On ouvre la boîte à la fin.</p>
+          <p class="meta">Atelier 11 · 9-16 ans · 60 min</p>
+          <h3 class="q">Comment dessiner un fond marin qu'on ne voit pas ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Ils sondent une boîte fermée avec une tige graduée, colorient leur carte, puis ouvrent la boîte.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>La bathymétrie, la façon dont on fait les cartes marines.</dd></div></dl>
         </div>
       </article>
-      <article class="card">
+      <article class="card" data-t="vivant">
         <img src="img/ill-familles.jpg" alt="Illustration : cartes du jeu des 7 familles de la mer tenues par des mains d'enfants" loading="lazy">
         <div class="b">
-          <p class="meta">Atelier 12 · 6 à 12 ans · 45 min</p>
-          <h3>Le jeu des 7 familles de la mer</h3>
-          <p class="q">Une baleine, est-ce un poisson ? Et la posidonie, une algue ?</p>
-          <p>Crustacés, mollusques, poissons, requins et raies, oiseaux marins, algues, plantes marines : un jeu de cartes illustré avec nos photos. Les élèves inventent d'abord leurs propres familles, puis jouent, et débattent des intrus comme la tortue ou le dauphin.</p>
+          <p class="meta">Atelier 12 · 6-12 ans · 45 min</p>
+          <h3 class="q">Une baleine, c'est un poisson ?</h3>
+          <dl><div><dt>Ils font</dt><dd>Ils inventent leurs propres familles avec nos cartes photo, puis jouent aux 7 familles de la mer et débattent des intrus.</dd></div><div><dt>Ils découvrent sans s'en rendre compte</dt><dd>Qu'on classe le vivant par ce qu'il partage, pas par là où il vit. La posidonie est une plante.</dd></div></dl>
         </div>
       </article>
     </div>
-    <p class="note"><b style="color:var(--sand)">Fil rouge : le carnet de bord.</b> Une grande carte au sol de notre itinéraire et une escale par séance : la classe suit le voyage, compare les milieux rencontrés et complète son propre carnet d'observation.</p>
+    <p class="note"><b style="color:var(--sand)">Sur une année, un fil rouge.</b> Une grande carte au sol de notre voyage. À chaque séance, une escale, un animal, une histoire vraie, et le carnet de bord de la classe qui se remplit.</p>
   </div>
 </section>
 
-<section id="camion">
+<section id="methode">
   <div class="wrap">
     <div class="head">
-      <p class="mono">04 · Le van-labo</p>
-      <h2>Un laboratoire qui se gare dans la cour</h2>
-      <p class="lede">Le van de Mathieu, un Volkswagen T6 aménagé, qui transporte tout le matériel, se déploie en vingt minutes et devient lui-même un objet de curiosité. Aucune salle spéciale à réserver, aucun car à louer pour l'école.</p>
+      <p class="mono">La méthode</p>
+      <h2>Une énigme, des mains, et personne ne donne la réponse</h2>
+      <p class="lede">Nos séances suivent la démarche des chercheurs. Les enfants partent de ce qu'ils croient savoir et finissent par le vérifier eux-mêmes.</p>
     </div>
-    <div class="van">
+    <ol class="steps">
+      <li><h3>Dessine-moi un requin</h3><p>On recueille ce qu'ils pensent. Les dessins sont gardés pour la fin.</p></li>
+      <li><h3>Une question qui résiste</h3><p>Ils proposent leurs explications avant de toucher au matériel.</p></li>
+      <li><h3>Les mains dans l'eau</h3><p>Petits groupes : on manipule, on mesure, on se trompe. Nous relançons, sans donner la réponse.</p></li>
+      <li><h3>Et maintenant ?</h3><p>Retour aux dessins du début, et une décision de classe : un geste, une affiche, un message pour une autre classe.</p></li>
+    </ol>
+    <ul class="rules">
+      <li><b>Zéro</b> diaporama</li>
+      <li><b>Dix minutes</b> maximum sans manipuler</li>
+      <li><b>De vraies images</b>, prises par nous</li>
+      <li><b>Deux animateurs</b> par classe</li>
+      <li><b>Un passeport d'explorateur</b> tamponné à chaque séance</li>
+    </ul>
+
+    <div class="van" style="margin-top:clamp(44px,7vh,80px)">
       <svg viewBox="0 0 640 330" role="img" aria-label="Schéma du van-labo vu de côté, porte latérale ouverte et auvent déployé">
         <rect x="0" y="282" width="640" height="2" fill="#62d6c5" opacity=".4"/>
         <path d="M70 110 L430 110 L430 270 L70 270 Z" fill="#0d3644" stroke="#62d6c5" stroke-width="1.5"/>
@@ -588,63 +552,76 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
           <circle cx="138" cy="118" r="12" fill="#ff7d5c"/><text x="138" y="122">6</text>
         </g>
       </svg>
-      <ol class="kit">
-        <li><span><b>Auvent et tapis de sol.</b> Une classe dehors par tous les temps, quatre îlots de travail en rotation.</span></li>
-        <li><span><b>Écran et loupes binoculaires.</b> Le plancton projeté en grand, nos images sous-marines, les spectrogrammes.</span></li>
-        <li><span><b>Paillasse humide.</b> Bacs, aquarium à courants, colonne d'eau pour la course de plancton.</span></li>
-        <li><span><b>Canal à houle sur tréteaux.</b> Il sort du coffre arrière et se monte devant le van.</span></li>
-        <li><span><b>Caisses d'ateliers.</b> Une caisse par atelier, numérotée : aimants du requin, becs, jeu de pêche, matériel de plongée.</span></li>
-        <li><span><b>La tête de requin.</b> Imprimée en 3D et fixée sur le flanc du van, elle sert de tableau aimanté et de signal de ralliement.</span></li>
-      </ol>
+      <div class="stack">
+        <h3 style="font-size:1.6rem;color:var(--sand)">Le labo se gare dans la cour</h3>
+        <p class="txt">Un van aménagé transporte tout : l'auvent, les loupes binoculaires reliées à un écran, le canal à houle, une caisse par atelier. Il se déploie en vingt minutes. Aucune salle à réserver, aucun car à louer, et la tête de requin sur le flanc fait déjà la moitié du travail.</p>
+        <p class="txt"><strong>L'imprimante vient aussi.</strong> Presque toutes nos maquettes sortent de notre imprimante 3D. En classe, elle imprime une dent de requin pendant la séance. Au collège, Mathieu montre toute la chaîne : photographier un objet, en tirer un modèle 3D, l'imprimer. C'est la même technique qui sert à cartographier les récifs.</p>
+      </div>
     </div>
-    <p class="note">Utiliser le van de Mathieu évite d'acheter un véhicule : seul son aménagement est à financer (auvent, rangements, énergie, marquage). Les ateliers tiennent aussi dans de simples caisses, ce qui permet de mener les séances pilotes avant la fin de l'aménagement.</p>
-    <p class="note"><b style="color:var(--sand)">L'atelier sort de l'atelier.</b> L'imprimante 3D multicolore qui fabrique nos maquettes peut venir à l'école. Branchée dans la classe, elle imprime une dent de requin ou un bec pendant la séance : les élèves voient comment on passe d'un modèle à l'ordinateur à un objet qu'on tient en main. Au collège, on montre la chaîne complète, de la photo d'un objet à son modèle 3D puis à l'impression, la technique qui sert aussi à cartographier les récifs. C'est le domaine de Mathieu.</p>
   </div>
 </section>
 
 <section id="mer">
   <div class="wrap">
-    <div class="head">
-      <p class="mono">05 · Classes de mer</p>
-      <h2>Après la classe, le large : trois jours en Méditerranée</h2>
-      <p class="lede">Aboutissement du parcours pour les classes volontaires : la mer depuis Marseille, en séjour de trois jours pour les classes suisses, à la journée pour les classes de la région. Les élèves y refont sur le terrain ce qu'ils ont appris en atelier.</p>
-    </div>
-    <div class="days">
-      <div class="day">
-        <img src="img/dunes.jpg" alt="Alice Beaujoin présente une fiche d'identification d'oiseau à un groupe dans les dunes">
-        <div class="b"><p class="meta">Jour 1 · à pied</p><h3>Lire le rivage</h3><p>Dunes, lagunes et laisse de mer. Inventaire naturaliste, tri des déchets échoués, prélèvement d'eau pour le microscope du soir.</p></div>
-      </div>
-      <div class="day">
-        <img src="img/antarctic.jpg" alt="Le voilier rouge Antarctic au mouillage devant une île de Méditerranée">
-        <div class="b"><p class="meta">Jour 2 · en mer</p><h3>À bord d'Antarctic</h3><p>Une journée sur un vrai voilier d'expédition, vers les îles du Frioul ou l'archipel de Riou. Observation des dauphins et des oiseaux marins avec un vrai protocole de comptage, trait de filet à plancton, écoute à l'hydrophone.</p></div>
-      </div>
-      <div class="day">
-        <img src="img/jumelles.jpg" alt="Alice Beaujoin aide une enfant à observer la mer aux jumelles">
-        <div class="b"><p class="meta">Jour 3 · rencontre</p><h3>Ceux qui protègent</h3><p>Rencontre avec les gestionnaires d'un espace protégé, par exemple le Parc national des Calanques, restitution des données de la classe, et engagement à rapporter à l'école.</p></div>
-      </div>
-    </div>
-    <div class="split">
+    <div class="split" style="margin-top:0">
       <div class="stack">
-        <h3 style="font-size:1.5rem;color:var(--sand)">Un format déjà pratiqué</h3>
-        <p class="txt">Au Seaquarium Institut Marin du Grau-du-Roi, Alice a <strong>organisé des sorties pédagogiques en mer à bord d'un voilier</strong> et accompagné pendant deux ans une classe de CM1 dans la gestion de son Aire Marine Éducative. Elle y a aussi coordonné des suivis d'oiseaux marins et de cétacés.</p>
-        <p class="txt"><strong>Le voilier Antarctic, en partenariat avec Ocean Kids &amp; Co.</strong> L'association <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a> est prête à accueillir nos classes à bord de son voilier <a href="https://www.voilierantarctic.com/">Antarctic</a>, basé à Marseille, qui peut embarquer une classe entière : 33 personnes à la journée, en plus de ses deux marins. À bord, selon le programme : snorkeling, jumelles, drones, tablettes et matériel d'observation.</p>
-        <p class="txt">Les sorties se font avec l'équipage du bateau. Le cadre (autorisations des directions, encadrement, assurances, transport) sera établi avec chaque établissement.</p>
+        <p class="mono">Après la classe, le large</p>
+        <h2 style="font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.04;color:var(--sand)">Et un jour, on embarque</h2>
+        <p class="txt">Pour les classes qui le souhaitent, le parcours peut finir en mer, à bord d'<strong>Antarctic</strong>, un voilier d'expédition de 20 mètres basé à Marseille. Jumelles en main, les élèves comptent les dauphins et les oiseaux marins avec un vrai protocole, remontent un filet à plancton et écoutent la mer à l'hydrophone.</p>
+        <p class="txt">Ce qu'ils ont appris sur une table, ils le retrouvent dehors. Les motifs de l'atelier 3 servent à reconnaître les dauphins à leur nageoire, les becs de l'atelier 5 à identifier les oiseaux du rivage.</p>
+        <p class="fine">En partenariat avec <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a> et le <a href="https://www.voilierantarctic.com/">voilier Antarctic</a>.</p>
       </div>
-      <img src="img/voilier-dosados.jpg" alt="Mathieu Soulayrol et Alice Beaujoin, jumelles en main, assis dos à dos sur le pont d'un voilier en mer" style="aspect-ratio:16/15;object-position:50% 60%">
-    </div>
-    <div class="partner">
-      <span class="mono">Partenaire des classes de mer</span>
-      <p><b><a href="https://www.oceankidsco.org/" style="color:var(--foam)">Ocean Kids &amp; Co</a></b> · voilier Antarctic, 20 m, basé à Marseille. <a href="https://www.oceankidsco.org/">Découvrir Ocean Kids &amp; Co</a> · <a href="https://www.voilierantarctic.com/">Le voilier Antarctic</a></p>
+      <img src="img/antarctic.jpg" alt="Le voilier rouge Antarctic au mouillage devant une île de Méditerranée" style="aspect-ratio:4/3.4">
     </div>
   </div>
 </section>
 
-<section id="voyage">
+<section id="pour-qui">
   <div class="wrap">
     <div class="head">
-      <p class="mono">06 · La matière première</p>
-      <h2>Toutes les images des ateliers viennent de notre voyage</h2>
-      <p class="lede">Chaque image a une histoire, et nous pouvons répondre à toutes les questions qu'elle soulève.</p>
+      <p class="mono">Pour qui</p>
+      <h2>Il y a sûrement une façon de travailler ensemble</h2>
+    </div>
+    <div class="doors">
+      <div><h3>Enseignant</h3><p>Un atelier de 90 minutes pour lancer un sujet, ou un parcours de plusieurs séances construit avec vous, qui peut finir en mer.</p></div>
+      <div><h3>École ou collège</h3><p>Une journée van-labo : le labo dans la cour, quatre ateliers en rotation, deux à quatre classes dans la journée.</p></div>
+      <div><h3>Commune, centre de loisirs, festival</h3><p>Le van en stand, des ateliers courts pour tous les âges, une exposition de nos photos.</p></div>
+      <div><h3>Partenaire ou mécène</h3><p>Parrainer un atelier, une sortie en mer pour une classe, ou une série de vidéos. Vous verrez exactement ce que votre soutien a produit.</p></div>
+    </div>
+    <div class="cta" style="margin-top:28px"><a class="btn solid" href="#contact">Racontez-nous votre projet</a></div>
+  </div>
+</section>
+
+<section id="nous">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">Nous</p>
+      <h2>On transmet ce qu'on a vu</h2>
+    </div>
+    <div class="story">
+      <blockquote>
+        <p>Nous avons traversé l'Atlantique à la voile, de la Méditerranée aux Caraïbes, puis longé le Pacifique de l'Amérique centrale au Pérou. Nous avons plongé avec les requins-marteaux des Galápagos, nagé à deux mètres d'un requin-baleine en Basse-Californie, observé les colonies de fous à pieds bleus du Pérou.</p>
+        <p>Nous sommes revenus avec des images plein les disques durs et une conviction : ce que nous avons vu se montre mieux qu'il ne se raconte. Quand un élève nous demande « vous l'avez vu en vrai ? », la réponse est oui, et nous avons la photo.</p>
+      </blockquote>
+      <img src="img/voilier-dosados.jpg" alt="Mathieu Soulayrol et Alice Beaujoin, jumelles en main, assis dos à dos sur le pont d'un voilier en mer">
+    </div>
+    <div class="duo">
+      <article class="who">
+        <img src="img/portrait.jpg" alt="Alice Beaujoin observe le large aux jumelles depuis une plage">
+        <div class="b">
+          <div><h3>Alice, le vivant</h3><p class="role">Biologiste marine · ornithologue · médiatrice scientifique</p></div>
+          <p>Elle a bagué des oiseaux marins sur l'île d'Europa, suivi des oiseaux marins et des cétacés en Méditerranée, et accompagné pendant deux ans une classe qui gérait son propre bout de littoral, une aire marine éducative.</p>
+          <ul class="marks"><li>Plongeuse professionnelle</li><li>Master de biologie marine</li><li>Seaquarium, CPIE, LPO</li></ul>
+        </div>
+      </article>
+      <article class="who">
+        <img src="img/surf.jpg" alt="Mathieu Soulayrol en combinaison, en train de surfer une vague" style="object-position:40% 50%">
+        <div class="b">
+          <div><h3>Mathieu, la physique de la mer</h3><p class="role">Ingénieur océanographe · génie côtier</p></div>
+          <p>Il a conçu des récifs biomimétiques, fait déferler des vagues dans des canaux d'essai et étudié le risque de submersion marine en Polynésie. Il a construit lui-même le canal à houle des ateliers, et il imprime les requins.</p>
+          <ul class="marks"><li>Scaphandrier scientifique</li><li>Master de génie côtier</li><li>Lineup Ocean, CNRS</li></ul>
+        </div>
+      </article>
     </div>
     <div class="strip">
       <figure><img src="img/marteaux.jpg" alt="Banc de requins-marteaux"><figcaption>Requins-marteaux · Galápagos</figcaption></figure>
@@ -671,96 +648,23 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   </div>
 </section>
 
-<section id="enligne">
-  <div class="wrap">
-    <div class="head">
-      <p class="mono">07 · En ligne</p>
-      <h2>Au-delà des classes : l'océan partagé sur les réseaux</h2>
-      <p class="lede">Les ateliers toucheront plusieurs milliers d'élèves par an. En ligne, nous pouvons en toucher bien plus, à partir de notre compte <a href="https://www.instagram.com/matali_adventures/">@matali_adventures</a> et de nos images sous-marines et aériennes.</p>
-    </div>
-    <div class="online">
-      <div><h3>Une question, une minute</h3><p>Des vidéos courtes de vulgarisation tournées en mer, en plongée ou devant le canal à houle : pourquoi l'iguane marin éternue, comment le requin sent l'électricité.</p></div>
-      <div><h3>Le quiz de la semaine</h3><p>Le format « à qui sont ces motifs ? », déjà testé sur Instagram, pour jouer en famille.</p></div>
-      <div><h3>Le carnet des classes</h3><p>Les coulisses des parcours et des classes de mer, et des ressources pour les enseignants qui veulent prolonger l'atelier.</p></div>
-      <div><h3>Nos partenaires en avant</h3><p>Chaque soutien apparaît sur le site, sur le van, dans les vidéos qu'il finance et dans un bilan annuel.</p></div>
-    </div>
-    <p class="note">Aucun visage d'élève n'est publié sans l'autorisation écrite des parents et l'accord de l'école. Par défaut, nous filmons les mains, les maquettes et les animaux.</p>
-  </div>
-</section>
-
-<section id="equipe">
-  <div class="wrap">
-    <div class="head">
-      <p class="mono">08 · L'équipe</p>
-      <h2>Le vivant et la physique de la mer, dans le même van</h2>
-      <p class="lede">Une biologiste qui a plusieurs années de médiation scolaire derrière elle, un ingénieur qui modélise les vagues. Les deux regards qu'il faut pour expliquer un littoral.</p>
-    </div>
-    <div class="team">
-      <article class="who top al">
-        <img src="img/portrait.jpg" alt="Alice Beaujoin observe le large aux jumelles depuis une plage">
-        <div class="b">
-          <div><h3>Alice Beaujoin</h3><p class="role">Biologiste marine · ornithologue · médiatrice scientifique</p></div>
-          <ul class="cv">
-            <li><span>Formation</span><span><b>Master BEST-ALI en biologie marine</b>, Université de La Réunion, après une licence SVT parcours Mer.</span></li>
-          </ul>
-        </div>
-      </article>
-      <article class="who top ma">
-        <img src="img/surf.jpg" alt="Mathieu Soulayrol en combinaison, en train de surfer une vague" style="object-position:40% 50%">
-        <div class="b">
-          <div><h3>Mathieu Soulayrol</h3><p class="role">Ingénieur océanographe · génie côtier</p></div>
-          <ul class="cv">
-            <li><span>Formation</span><span><b>Master Génie côtier et dynamique littorale</b>, Université de Montpellier, et D.U. Restauration écologique des petits fonds marins côtiers.</span></li>
-          </ul>
-        </div>
-      </article>
-      <div class="together">
-        <div class="tg-head"><span class="mono">2025 – 2026 · Ensemble</span><h3>Une année de voyage, à deux</h3></div>
-        <p>Traversée de l'Atlantique à la voile, environ 2 000 milles de la Méditerranée aux Caraïbes, puis l'Amérique centrale et du Sud jusqu'au Pacifique. Plongées avec les requins-marteaux aux Galápagos, missions dans des centres de protection de l'environnement, dont un centre pour primates en Équateur.</p>
-      </div>
-      <article class="who bottom al">
-        <div class="b">
-          <ul class="cv">
-            <li><span>2023 – 2025</span><span><b>Seaquarium Institut Marin.</b> Animations scolaires, Aire Marine Éducative avec une classe de CM1 pendant deux ans, sorties en mer, suivis d'oiseaux marins et de cétacés, textes de l'exposition « Ailes de Méditerranée ».</span></li>
-            <li><span>2022 – 2023</span><span><b>CPIE.</b> Responsable du pôle biodiversité, animations scolaires, sorties naturalistes, encadrement de bénévoles.</span></li>
-            <li><span>2021 – 2022</span><span><b>LPO PACA.</b> Inventaires et suivis naturalistes, bioacoustique, rallyes nature.</span></li>
-            <li><span>2020</span><span><b>Île d'Europa (TAAF, UMR ENTROPIE).</b> Mission scientifique : baguage et suivi d'oiseaux marins, bioacoustique.</span></li>
-            <li><span>Brevets</span><span>Plongée professionnelle (classe 0B), PA20, BAFA, PSC1, permis côtier.</span></li>
-          </ul>
-          <p><a href="https://claude.ai/artifact/DaU1SgarZsWeaLVEXnNYKc">Voir le portfolio complet d'Alice</a></p>
-        </div>
-      </article>
-      <article class="who bottom ma">
-        <div class="b">
-          <ul class="cv">
-            <li><span>2022 – 2025</span><span><b>Lineup Ocean.</b> Ingénieur R&amp;D et second du dirigeant : récifs biomimétiques, essais en canal à houle et suivis en mer, projet européen LIFE retenu, études de submersion pour les collectivités, encadrement d'une dizaine de stagiaires.</span></li>
-            <li><span>2021</span><span><b>CNRS × Terre Natura Géotechnique, Polynésie française.</b> Un mois de terrain à Maupiti sur le risque de submersion marine.</span></li>
-            <li><span>2021</span><span><b>Faculté des Sciences de Montpellier.</b> Tuteur d'étudiants de première année.</span></li>
-            <li><span>Brevets</span><span>Scaphandrier scientifique (CAH classe I mention B), PA40, permis bateau côtier.</span></li>
-            <li><span>Aux ateliers</span><span>Conçoit et fabrique le canal à houle, l'outil de son métier, l'aquarium à courants et les maquettes imprimées en 3D.</span></li>
-          </ul>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-
-
 <section id="contact">
   <div class="wrap contact">
-    <h2>Parlons-en, et venez essayer le canal à houle.</h2>
-    <dl>
-      <dt>Alice Beaujoin</dt><dd>albeaujoin@gmail.com · +33 6 84 84 26 16</dd>
-      <dt>Mathieu Soulayrol</dt><dd>mathieu.soulayrol@gmail.com · +33 7 55 68 96 55</dd>
-      <dt>Projet</dt><dd>SEANATURA, association en cours de création. Nom provisoire.</dd>
-    </dl>
+    <h2>Vous avez une classe, une idée, une question ?</h2>
+    <div>
+      <p class="lede" style="margin-bottom:22px">Écrivez-nous. Nous venons volontiers faire un essai avec le canal à houle.</p>
+      <dl>
+        <dt>Alice Beaujoin</dt><dd>albeaujoin@gmail.com · +33 6 84 84 26 16</dd>
+        <dt>Mathieu Soulayrol</dt><dd>mathieu.soulayrol@gmail.com · +33 7 55 68 96 55</dd>
+        <dt>Le voyage</dt><dd>Sur Instagram : <a href="https://www.instagram.com/matali_adventures/">@matali_adventures</a></dd>
+      </dl>
+    </div>
   </div>
 </section>
 
 </main>
 
-<footer><div class="wrap"><p style="margin-bottom:8px">Classes de mer en partenariat avec <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a>, à bord du <a href="https://www.voilierantarctic.com/">voilier Antarctic</a>. Suivez le voyage sur Instagram : <a href="https://www.instagram.com/matali_adventures/">@matali_adventures</a></p>© Matali, Alice Beaujoin et Mathieu Soulayrol, tous droits réservés. Les photos et les textes de ce site ne peuvent pas être reproduits sans notre autorisation. Photographies : Alice Beaujoin et Mathieu Soulayrol, sauf photos de médiation (Seaquarium Institut Marin). Les trois démonstrations interactives sont des illustrations simplifiées des ateliers, pas des modèles scientifiques.</div></footer>
+<footer><div class="wrap"><p style="margin-bottom:8px">SEANATURA, association en cours de création. Nous intervenons autour du Léman et de Marseille. Sorties en mer en partenariat avec <a href="https://www.oceankidsco.org/">Ocean Kids &amp; Co</a>, à bord du <a href="https://www.voilierantarctic.com/">voilier Antarctic</a>.</p>© Matali, Alice Beaujoin et Mathieu Soulayrol, tous droits réservés. Photographies : Alice Beaujoin et Mathieu Soulayrol, sauf photos de médiation (Seaquarium Institut Marin). Aucun visage d'élève n'est publié sans l'accord écrit des parents. Les trois démonstrations sont des illustrations simplifiées des ateliers, pas des modèles scientifiques.</div></footer>
 
 <script>
 (function(){
@@ -898,6 +802,16 @@ footer{padding:28px 0 48px;color:var(--mute);font-size:.82rem;border-top:1px sol
   }
   document.getElementById('fchips').addEventListener('click',function(e){ var b=e.target.closest('.chip'); if(b) set(b.dataset.m); });
   set('none'); loop();
+})();
+</script>
+<script>
+(function(){
+  var box=document.querySelector('.filters'); if(!box) return;
+  box.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b) return; var f=b.dataset.f;
+    box.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',c===b?'true':'false');});
+    document.querySelectorAll('#cards .card').forEach(function(c){c.hidden=!(f==='all'||c.dataset.t===f);});
+  });
 })();
 </script>
 </body>
